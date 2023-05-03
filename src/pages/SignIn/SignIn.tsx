@@ -1,5 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CustomInput, GithubLogo } from '@/components'
+import { ERROR_CODE } from '@/constants'
+import { useAuth } from '@/context'
 import {
+  Alert,
+  AlertIcon,
   Button,
   Card,
   CardBody,
@@ -12,9 +17,56 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { Link as RouterLink } from 'react-router-dom'
+import { ChangeEvent, useState } from 'react'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 
 export const SignIn = () => {
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
+
+  const navigate = useNavigate()
+  const { signIn } = useAuth()
+
+  const handleEmail = (e: ChangeEvent<HTMLInputElement>) =>
+    setEmail(e.target.value)
+
+  const handlePassword = (e: ChangeEvent<HTMLInputElement>) =>
+    setPassword(e.target.value)
+
+  const clearInputAndSetError = (errorMessage: string) => {
+    return setErrorMessage(errorMessage)
+  }
+
+  const handleSignIn = async (e: any): Promise<void> => {
+    e.preventDefault()
+    try {
+      setLoading(true)
+      await signIn(email, password)
+      navigate('/', { replace: true })
+    } catch (error: any) {
+      switch (error.code) {
+        case ERROR_CODE.WRONG_PASSWORD:
+          clearInputAndSetError('Wrong password!')
+          break
+        case ERROR_CODE.USER_NOT_FOUND:
+          clearInputAndSetError('User not found!')
+          break
+        case ERROR_CODE.TOO_MANY_REQUEST:
+          clearInputAndSetError(
+            'Too many login attempts. click on "Forgot Password" to reset your password.'
+          )
+          break
+        default:
+          clearInputAndSetError('Failed to sign in!')
+          break
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <Center
       as="section"
@@ -28,6 +80,12 @@ export const SignIn = () => {
         <Heading as="h1" fontWeight="300" fontSize="24px">
           Sign in to Brainwave
         </Heading>
+        {errorMessage && (
+          <Alert status="error" color="brand.dark">
+            <AlertIcon />
+            {errorMessage}
+          </Alert>
+        )}
       </VStack>
       <Card
         bg="brand.softDark"
@@ -35,10 +93,15 @@ export const SignIn = () => {
         variant="outline"
         borderColor="brand.border"
         w="308px">
-        <CardBody display="flex" gap={4} flexDir="column" as="form">
+        <CardBody
+          as="form"
+          display="flex"
+          gap={4}
+          flexDir="column"
+          onSubmit={handleSignIn}>
           <FormControl as="fieldset">
             <FormLabel fontSize="sm">Email address</FormLabel>
-            <CustomInput type="text" />
+            <CustomInput type="email" onChange={handleEmail} />
           </FormControl>
           <FormControl as="fieldset">
             <HStack justify="space-between">
@@ -53,15 +116,16 @@ export const SignIn = () => {
                 Forgot password?
               </Button>
             </HStack>
-            <CustomInput type="password" />
+            <CustomInput type="password" onChange={handlePassword} />
           </FormControl>
           <Button
+            type="submit"
             bg="brand.secondary"
             fontWeight="300"
             size="sm"
             _hover={{ bg: 'brand.secondary' }}
             _active={{ bg: 'brand.secondary' }}>
-            Sign In
+            {loading ? 'loading...' : 'Sign in'}
           </Button>
         </CardBody>
       </Card>

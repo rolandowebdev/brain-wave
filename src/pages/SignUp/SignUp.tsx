@@ -35,7 +35,7 @@ export const SignUp = () => {
         variant="outline"
         borderColor="brand.border"
         w="308px">
-        <CardBody display="flex" gap={4} flexDir="column" as="form">
+        <CardBody as="form" display="flex" gap={4} flexDir="column">
           <FormControl as="fieldset">
             <FormLabel fontSize="sm">Email address</FormLabel>
             <CustomInput type="text" />
