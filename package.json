@@ -13,10 +13,11 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.19",
     "@chakra-ui/react": "^2.6.0",
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
-    "@fontsource/noto-sans": "^4.5.11",
+    "@fontsource/fira-sans": "^4.5.10",
     "framer-motion": "^10.12.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
