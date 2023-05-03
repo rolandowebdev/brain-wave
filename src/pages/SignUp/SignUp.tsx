@@ -13,6 +13,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom'
 
 export const SignUp = () => {
   return (
@@ -49,7 +50,7 @@ export const SignUp = () => {
               size="sm"
               _hover={{ bg: 'brand.secondary' }}
               _active={{ bg: 'brand.secondary' }}>
-              Sign up
+              Sign Up
             </Button>
           </CardBody>
         </Card>
@@ -62,8 +63,8 @@ export const SignUp = () => {
             <Center>
               <HStack fontSize="sm" spacing="1">
                 <Text>Already have an account?</Text>
-                <Link isExternal color="brand.primary" href="#">
-                  Sign in.
+                <Link as={RouterLink} to="/signin" color="brand.primary">
+                  Sign In
                 </Link>
               </HStack>
             </Center>
