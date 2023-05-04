@@ -122,7 +122,6 @@ export const SignIn = () => {
               </FormControl>
               <Button
                 type="submit"
-                value="Sign in"
                 bg="brand.secondary"
                 fontWeight="300"
                 size="sm"
