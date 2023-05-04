@@ -1,3 +1,6 @@
+import { useAuth } from '@/context'
+
 export const Dashboard = () => {
-  return <div>Dashboard</div>
+  const { currentUser } = useAuth()
+  return <div>Welcome {currentUser?.email}</div>
 }

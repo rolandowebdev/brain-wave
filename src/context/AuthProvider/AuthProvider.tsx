@@ -1,71 +1,41 @@
-import { auth } from '@/libs'
 import {
-  Auth,
-  User,
-  UserCredential,
-  createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-  signOut,
-} from 'firebase/auth'
-import {
-  ReactNode,
   createContext,
-  useContext,
   useEffect,
-  useState,
+  useReducer,
+  ReactNode,
+  useContext,
 } from 'react'
+import { AuthReducer } from './AuthReducer'
+import { AuthContextProps, AuthState } from '@/models/authUser'
 
-export interface AuthProviderProps {
-  children?: ReactNode
+interface AuthProviderProps {
+  children: ReactNode
 }
 
-export interface AuthContextModel {
-  auth: Auth
-  user: User | null
-  signIn: (email: string, password: string) => Promise<UserCredential>
-  signUp: (email: string, password: string) => Promise<UserCredential>
-  logOut: () => Promise<void>
-  sendPasswordResetEmail?: (email: string, password: string) => Promise<void>
+const INITIAL_STATE: AuthState = {
+  currentUser: JSON.parse(localStorage.getItem('user') || 'null'),
 }
 
-export const AuthContext = createContext<AuthContextModel>(
-  {} as AuthContextModel
-)
+const AuthContext = createContext<AuthContextProps>({
+  currentUser: null,
+  dispatch: () => {
+    throw new Error('dispatch function not implemented')
+  },
+})
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const useAuth = (): AuthContextModel => useContext(AuthContext)
+export const useAuth = () => useContext(AuthContext)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User | null>(null)
-
-  const signUp = (email: string, password: string): Promise<UserCredential> =>
-    createUserWithEmailAndPassword(auth, email, password)
-
-  const signIn = (email: string, password: string): Promise<UserCredential> =>
-    signInWithEmailAndPassword(auth, email, password)
-
-  const resetPassword = (email: string): Promise<void> =>
-    sendPasswordResetEmail(auth, email)
-
-  const logOut = (): Promise<void> => signOut(auth)
+  const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE)
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (!user) setUser(null)
-      setUser(user)
-    })
-    return () => unsubscribe()
-  }, [])
+    localStorage.setItem('user', JSON.stringify(state.currentUser))
+  }, [state.currentUser])
 
-  const values = {
-    user,
-    signUp,
-    signIn,
-    logOut,
-    resetPassword,
-    auth,
-  }
-
-  return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ currentUser: state.currentUser, dispatch }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
