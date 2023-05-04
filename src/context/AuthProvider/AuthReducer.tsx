@@ -10,7 +10,7 @@ export const AuthReducer = (
         currentUser: action.payload,
       }
     }
-    case 'SIGNOUT': {
+    case 'LOGOUT': {
       return {
         currentUser: null,
       }

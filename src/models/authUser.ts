@@ -7,7 +7,7 @@ export interface AuthContextProps {
 }
 
 export interface AuthAction {
-  type: 'SIGNIN' | 'SIGNOUT'
+  type: 'SIGNIN' | 'LOGOUT'
   payload?: any
 }
 
