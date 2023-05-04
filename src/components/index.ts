@@ -1,2 +1,3 @@
 export * from './CustomInput/CustomInput'
-export * from './GithubLogo/GithubLogo'
+export * from './Logo'
+export * from './Navbar/Navbar'

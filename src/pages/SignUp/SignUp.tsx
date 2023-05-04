@@ -1,4 +1,4 @@
-import { CustomInput, GithubLogo } from '@/components'
+import { CustomInput, Github } from '@/components'
 import { ERROR_CODE } from '@/constants'
 import { auth } from '@/libs'
 import {
@@ -70,14 +70,14 @@ export const SignUp = () => {
 
   return (
     <Center
-      as="section"
+      as="main"
       display="flex"
       flexDir="column"
       gap={4}
       justifyContent="center"
       alignItems="center">
       <VStack as="header" spacing="6" mt="8">
-        <GithubLogo />
+        <Github size="64" />
         <Heading as="h1" fontWeight="300" fontSize="24px">
           Sign up to Brainwave
         </Heading>

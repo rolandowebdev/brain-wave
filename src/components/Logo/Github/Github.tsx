@@ -1,8 +1,12 @@
-export const GithubLogo = () => {
+interface GithubProps {
+  size: string
+}
+
+export const Github = ({ size }: GithubProps) => {
   return (
     <svg
-      width="48"
-      height="48"
+      width={`${size}px`}
+      height={`${size}px`}
       viewBox="0 0 486 512"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
