@@ -5,11 +5,13 @@ import { CloseIcon } from '@chakra-ui/icons'
 import {
   Box,
   Button,
+  Center,
   HStack,
   Heading,
   IconButton,
   Stack,
   Text,
+  VStack,
 } from '@chakra-ui/react'
 import { signOut } from 'firebase/auth'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -65,13 +67,13 @@ const getDescription = (category: any): QuizProps => {
 const getIllustration = (category: any): JSX.Element => {
   switch (category) {
     case 'animals':
-      return <Animals height="150" width="150" />
+      return <Animals position="static" height="160" width="160" />
     case 'knowledge':
-      return <Knowledge height="150" width="150" />
+      return <Knowledge position="static" height="160" width="160" />
     case 'computer':
-      return <Computer height="150" width="150" />
+      return <Computer position="static" height="160" width="160" />
     case 'geography':
-      return <Geography height="150" width="150" />
+      return <Geography position="static" height="160" width="160" />
     default:
       return <div />
   }
@@ -109,12 +111,15 @@ export const Description = () => {
           icon={<CloseIcon fontSize="sm" />}
         />
       </HStack>
-      <Box as="main" mt="40px">
+      <Box as="main">
+        <Center>{illustration}</Center>
         <Stack spacing={4}>
-          <Heading as="h1" letterSpacing="wide">
-            {categoryData.title}
-          </Heading>
-          {illustration}
+          <VStack alignItems="flex-start">
+            <Text as="span">{categoryData.difficulty}</Text>
+            <Heading as="h1" letterSpacing="wide">
+              {categoryData.title}
+            </Heading>
+          </VStack>
           <Text as="p">{categoryData.description}</Text>
           <Button colorScheme="teal" size="lg" fontWeight="normal" w={36}>
             Game

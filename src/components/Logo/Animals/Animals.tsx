@@ -1,13 +1,14 @@
 interface AnimalsProps {
+  position: 'static' | 'absolute'
   height: string
   width: string
 }
 
-export const Animals = ({ height, width }: AnimalsProps) => {
+export const Animals = ({ position, height, width }: AnimalsProps) => {
   // 246 - 302
   return (
     <svg
-      style={{ position: 'absolute', top: '-50%', left: '250px' }}
+      style={{ position: `${position}`, top: '-50%', left: '250px' }}
       width={`${width}px`}
       height={`${height}px`}
       viewBox="0 0 246 302"

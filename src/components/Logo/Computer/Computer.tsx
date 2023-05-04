@@ -1,12 +1,13 @@
 interface ComputerProps {
+  position: 'static' | 'absolute'
   height: string
   width: string
 }
 
-export const Computer = ({ width, height }: ComputerProps) => {
+export const Computer = ({ position, width, height }: ComputerProps) => {
   return (
     <svg
-      style={{ position: 'absolute', top: '-50%', left: '250px' }}
+      style={{ position: `${position}`, top: '-50%', left: '250px' }}
       width={`${width}px`}
       height={`${height}px`}
       viewBox="0 0 343 344"

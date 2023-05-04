@@ -16,13 +16,13 @@ import { useNavigate } from 'react-router-dom'
 const getIllustration = (title: string): JSX.Element => {
   switch (title) {
     case 'Animals':
-      return <Animals height="150" width="150" />
+      return <Animals position="absolute" height="150" width="150" />
     case 'General Knowledge':
-      return <Knowledge height="150" width="150" />
+      return <Knowledge position="absolute" height="150" width="150" />
     case 'Computer':
-      return <Computer height="150" width="150" />
+      return <Computer position="absolute" height="150" width="150" />
     case 'Geography':
-      return <Geography height="150" width="150" />
+      return <Geography position="absolute" height="150" width="150" />
     default:
       return <div />
   }

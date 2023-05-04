@@ -1,12 +1,13 @@
 interface GeographyProps {
+  position: 'static' | 'absolute'
   width: string
   height: string
 }
 
-export const Geography = ({ width, height }: GeographyProps) => {
+export const Geography = ({ position, width, height }: GeographyProps) => {
   return (
     <svg
-      style={{ position: 'absolute', top: '-50%', left: '250px' }}
+      style={{ position: `${position}`, top: '-50%', left: '250px' }}
       width={`${width}px`}
       height={`${height}px`}
       viewBox="0 0 340 400"

@@ -1,12 +1,13 @@
 interface KnowledgeProps {
+  position: 'static' | 'absolute'
   width: string
   height: string
 }
 
-export const Knowledge = ({ width, height }: KnowledgeProps) => {
+export const Knowledge = ({ position, width, height }: KnowledgeProps) => {
   return (
     <svg
-      style={{ position: 'absolute', top: '-50%', left: '250px' }}
+      style={{ position: `${position}`, top: '-50%', left: '250px' }}
       width={`${width}px`}
       height={`${height}px`}
       viewBox="0 0 326 384"
