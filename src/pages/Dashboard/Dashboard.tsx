@@ -1,19 +1,43 @@
-import { Animals, Knowledge, Navbar, VideoGame } from '@/components'
-import { useAuth } from '@/context'
-import { Box, Heading } from '@chakra-ui/react'
+import {
+  Animals,
+  Knowledge,
+  MenuCard,
+  Navbar,
+  Computer,
+  Geography,
+} from '@/components'
+import { CheckIcon, LockIcon, StarIcon } from '@chakra-ui/icons'
+import { Box, Grid, Heading, Text, VStack } from '@chakra-ui/react'
 
 export const Dashboard = () => {
-  const { currentUser } = useAuth()
   return (
     <>
       <Navbar />
       <Box as="main" mt="44px">
-        <Heading as="h1" textAlign="center">
-          Welcome {currentUser?.email}
-        </Heading>
-        <Knowledge />
-        <Animals />
-        <VideoGame />
+        <VStack spacing={1} alignItems="flex-start" mb="40px">
+          <Heading as="h1" letterSpacing="wide">
+            Let's Play
+          </Heading>
+          <Text as="p">Be the first!</Text>
+        </VStack>
+        <Grid templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)']} gap={12}>
+          <MenuCard
+            icon={<CheckIcon />}
+            illustration={<Animals height="150" width="150" />}
+          />
+          <MenuCard
+            icon={<StarIcon />}
+            illustration={<Knowledge height="150" width="150" />}
+          />
+          <MenuCard
+            icon={<LockIcon />}
+            illustration={<Computer height="150" width="150" />}
+          />
+          <MenuCard
+            icon={<LockIcon />}
+            illustration={<Geography height="150" width="150" />}
+          />
+        </Grid>
       </Box>
     </>
   )

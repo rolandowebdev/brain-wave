@@ -1,4 +1,6 @@
 export * from './Animals/Animals'
 export * from './Github/Github'
 export * from './Knowledge/Knowledge'
-export * from './VideoGame/VideoGame'
+export * from './Logout/Logout'
+export * from './Computer/Computer'
+export * from './Geography/Geography'
