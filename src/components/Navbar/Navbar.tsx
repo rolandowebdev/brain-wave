@@ -22,11 +22,9 @@ export const Navbar = ({ logout }: NavbarProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <HStack h="64px" justifyContent="space-between" alignItems="center">
-      <HStack>
-        <Text as="span" fontSize="2xl" fontWeight="bold" letterSpacing="wide">
-          Brainwave
-        </Text>
-      </HStack>
+      <Text as="span" fontSize="2xl" fontWeight="bold" letterSpacing="wide">
+        Brainwave
+      </Text>
       <IconButton
         onClick={onOpen}
         borderColor="brand.light"
@@ -34,8 +32,9 @@ export const Navbar = ({ logout }: NavbarProps) => {
         rounded="full"
         aria-label="Search database"
         _hover={{
-          borderColor: 'brand.primary',
+          borderColor: 'brand.light',
         }}
+        _focus={{ backgroundColor: 'transparent' }}
         icon={<Logout size="19" color="#e6edf3" />}
       />
       <Modal isOpen={isOpen} onClose={onClose}>

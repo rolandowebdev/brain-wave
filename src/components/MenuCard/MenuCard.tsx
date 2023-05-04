@@ -1,3 +1,5 @@
+import { QuizProps } from '@/models'
+import { StarIcon } from '@chakra-ui/icons'
 import {
   Card,
   CardBody,
@@ -8,20 +10,27 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
+import { Animals, Computer, Knowledge, Geography } from '../Logo'
+import { useNavigate } from 'react-router-dom'
 
-interface MenuCardProps {
-  title: string
-  difficulty: 'Easy' | 'Medium' | 'Hard'
-  illustration: JSX.Element
-  icon: JSX.Element
+const getIllustration = (title: string): JSX.Element => {
+  switch (title) {
+    case 'Animals':
+      return <Animals height="150" width="150" />
+    case 'General Knowledge':
+      return <Knowledge height="150" width="150" />
+    case 'Computer':
+      return <Computer height="150" width="150" />
+    case 'Geography':
+      return <Geography height="150" width="150" />
+    default:
+      return <div />
+  }
 }
 
-export const MenuCard = ({
-  title,
-  difficulty,
-  illustration,
-  icon,
-}: MenuCardProps) => {
+export const MenuCard = ({ category, title, difficulty }: QuizProps) => {
+  const navigate = useNavigate()
+  const illustration = getIllustration(title)
   return (
     <Card
       backgroundColor="brand.softDark"
@@ -30,7 +39,9 @@ export const MenuCard = ({
       rounded="2xl"
       direction={{ base: 'column', sm: 'row' }}
       variant="outline"
-      size="sm">
+      size="sm"
+      onClick={() => navigate(`/${category}`)}
+      _hover={{ cursor: 'pointer' }}>
       <Stack>
         <CardBody position="relative">
           <IconButton
@@ -41,7 +52,7 @@ export const MenuCard = ({
             variant="outline"
             rounded="xl"
             aria-label="Search database"
-            icon={icon}
+            icon={<StarIcon />}
           />
           {illustration}
         </CardBody>

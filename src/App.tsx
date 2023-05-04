@@ -1,6 +1,6 @@
 import { Box, Container } from '@chakra-ui/react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Dashboard, SignIn, SignUp } from '@/pages'
+import { Dashboard, Description, SignIn, SignUp } from '@/pages'
 import { PrivateRoutes } from '@/routes'
 
 const App = () => {
@@ -9,7 +9,7 @@ const App = () => {
       <Container maxW="4xl" sx={{ minH: 'calc(100vh - 64px)' }}>
         <BrowserRouter>
           <Routes>
-            <Route>
+            <Route path="/">
               <Route
                 index
                 element={
@@ -20,6 +20,7 @@ const App = () => {
               />
               <Route path="signin" element={<SignIn />} />
               <Route path="signup" element={<SignUp />} />
+              <Route path=":category" element={<Description />} />
             </Route>
           </Routes>
         </BrowserRouter>
