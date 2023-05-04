@@ -22,18 +22,26 @@ export const Dashboard = () => {
         </VStack>
         <Grid templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)']} gap={12}>
           <MenuCard
+            title="Animals"
+            difficulty="Easy"
             icon={<CheckIcon />}
             illustration={<Animals height="150" width="150" />}
           />
           <MenuCard
+            title="General Knowledge"
+            difficulty="Medium"
             icon={<StarIcon />}
             illustration={<Knowledge height="150" width="150" />}
           />
           <MenuCard
+            title="Computer"
+            difficulty="Hard"
             icon={<LockIcon />}
             illustration={<Computer height="150" width="150" />}
           />
           <MenuCard
+            title="Geography"
+            difficulty="Hard"
             icon={<LockIcon />}
             illustration={<Geography height="150" width="150" />}
           />

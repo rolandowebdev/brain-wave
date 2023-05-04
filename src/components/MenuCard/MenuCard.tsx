@@ -10,11 +10,18 @@ import {
 } from '@chakra-ui/react'
 
 interface MenuCardProps {
+  title: string
+  difficulty: 'Easy' | 'Medium' | 'Hard'
   illustration: JSX.Element
   icon: JSX.Element
 }
 
-export const MenuCard = ({ illustration, icon }: MenuCardProps) => {
+export const MenuCard = ({
+  title,
+  difficulty,
+  illustration,
+  icon,
+}: MenuCardProps) => {
   return (
     <Card
       backgroundColor="brand.softDark"
@@ -40,9 +47,9 @@ export const MenuCard = ({ illustration, icon }: MenuCardProps) => {
         </CardBody>
         <CardFooter>
           <VStack alignItems="flex-start">
-            <Text as="p">Level 2</Text>
+            <Text as="p">{difficulty}</Text>
             <Heading fontSize="2xl" letterSpacing="wide">
-              Travel Newbie
+              {title}
             </Heading>
           </VStack>
         </CardFooter>
