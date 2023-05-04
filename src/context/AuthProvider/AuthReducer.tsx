@@ -1,4 +1,4 @@
-import { AuthAction, AuthState } from '@/models/authUser'
+import { AuthAction, AuthState } from '@/models'
 
 export const AuthReducer = (
   state: AuthState,
