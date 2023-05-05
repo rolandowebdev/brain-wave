@@ -10,5 +10,9 @@ export const PrivateRoutes = ({
   children,
 }: PrivateRoutesProps): JSX.Element => {
   const { currentUser } = useAuth()
-  return currentUser ? (children as JSX.Element) : <Navigate to="/signin" />
+  return currentUser ? (
+    (children as JSX.Element)
+  ) : (
+    <Navigate to="/signin" replace={true} />
+  )
 }

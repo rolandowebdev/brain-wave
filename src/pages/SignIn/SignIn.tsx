@@ -49,7 +49,7 @@ export const SignIn = () => {
       )
       const user = userCredential.user
       dispatch({ type: 'SIGNIN', payload: user })
-      navigate('/')
+      navigate('/', { replace: true })
     } catch (error: any) {
       switch (error.code) {
         case ERROR_CODE.WRONG_PASSWORD:
