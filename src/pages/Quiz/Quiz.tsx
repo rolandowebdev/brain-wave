@@ -1,5 +1,6 @@
-import { Animals, Computer, Geography, Knowledge, Navbar } from '@/components'
+import { Navbar } from '@/components'
 import { auth } from '@/libs'
+import { getIllustration } from '@/utils'
 import { CloseIcon } from '@chakra-ui/icons'
 import {
   Button,
@@ -13,26 +14,9 @@ import {
 import { signOut } from 'firebase/auth'
 import { useNavigate, useParams } from 'react-router-dom'
 
-const getIllustration = (quizName: any, size: string): JSX.Element => {
-  switch (quizName) {
-    case 'animalsQuiz':
-      return <Animals position="static" height={size} width={size} />
-    case 'knowledgeQuiz':
-      return <Knowledge position="static" height={size} width={size} />
-    case 'computerQuiz':
-      return <Computer position="static" height={size} width={size} />
-    case 'geographyQuiz':
-      return <Geography position="static" height={size} width={size} />
-    default:
-      return <div />
-  }
-}
-
 export const Quiz = () => {
   const navigate = useNavigate()
   const { quizName } = useParams()
-
-  console.log(quizName)
 
   const illustration = getIllustration(quizName, '200')
 
