@@ -117,7 +117,11 @@ export const Description = () => {
         />
       ) : (
         <>
-          <HStack mt="44px" justifyContent="space-between" alignItems="center">
+          <HStack
+            as="main"
+            mt="44px"
+            justifyContent="space-between"
+            alignItems="center">
             <IconButton
               borderColor="brand.light"
               variant="outline"

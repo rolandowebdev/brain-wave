@@ -34,7 +34,11 @@ export const Question = ({
         _focus={{ backgroundColor: 'transparent' }}
         icon={<CloseIcon fontSize="sm" />}
       />
-      <Stack alignItems="flex-end" direction={['column', 'row']} gap={8}>
+      <Stack
+        as="main"
+        alignItems="flex-end"
+        direction={['column', 'row']}
+        gap={8}>
         <VStack flex={1} spacing={8} textAlign="center" fontSize="xl">
           {illustration}
           <VStack spacing={4} w="full">
