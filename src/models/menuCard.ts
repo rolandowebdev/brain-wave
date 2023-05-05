@@ -4,4 +4,10 @@ export interface QuizProps {
   category: 'animals' | 'knowledge' | 'computer' | 'geography' | 'unknown'
   difficulty: 'Easy' | 'Medium' | 'Hard' | 'Unknown'
   description?: string
+  quizName?:
+    | 'animalsQuiz'
+    | 'knowledgeQuiz'
+    | 'computerQuiz'
+    | 'GeographyQuiz'
+    | 'unknown'
 }

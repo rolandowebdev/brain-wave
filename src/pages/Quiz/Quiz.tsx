@@ -1,3 +1,5 @@
+import { Animals, Computer, Geography, Knowledge, Navbar } from '@/components'
+import { auth } from '@/libs'
 import { CloseIcon } from '@chakra-ui/icons'
 import {
   Button,
@@ -8,26 +10,51 @@ import {
   VStack,
   Wrap,
 } from '@chakra-ui/react'
+import { signOut } from 'firebase/auth'
+import { useNavigate, useParams } from 'react-router-dom'
 
-interface QuestionProps {
-  handleStartQuiz: (condition: boolean) => void
-  getIllustration: () => JSX.Element
+const getIllustration = (quizName: any, size: string): JSX.Element => {
+  switch (quizName) {
+    case 'animalsQuiz':
+      return <Animals position="static" height={size} width={size} />
+    case 'knowledgeQuiz':
+      return <Knowledge position="static" height={size} width={size} />
+    case 'computerQuiz':
+      return <Computer position="static" height={size} width={size} />
+    case 'geographyQuiz':
+      return <Geography position="static" height={size} width={size} />
+    default:
+      return <div />
+  }
 }
 
-export const Question = ({
-  handleStartQuiz,
-  getIllustration,
-}: QuestionProps) => {
-  const illustration = getIllustration()
+export const Quiz = () => {
+  const navigate = useNavigate()
+  const { quizName } = useParams()
+
+  console.log(quizName)
+
+  const illustration = getIllustration(quizName, '200')
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth)
+      localStorage.clear()
+      navigate('/signin')
+    } catch {
+      console.log('Failed to sign out!')
+    }
+  }
   return (
     <>
+      <Navbar logout={handleLogout} />
       <IconButton
+        onClick={() => navigate(-1)}
         mt="44px"
         borderColor="brand.light"
         variant="outline"
         rounded="full"
         aria-label="Search database"
-        onClick={() => handleStartQuiz(false)}
         _hover={{
           borderColor: 'brand.light',
         }}
