@@ -1,4 +1,5 @@
 export * from './Dashboard/Dashboard'
 export * from './Description/Description'
+export * from '../components/Question/Question'
 export * from './SignIn/SignIn'
 export * from './SignUp/SignUp'

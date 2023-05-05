@@ -1,7 +1,14 @@
-import { Animals, Computer, Geography, Knowledge, Navbar } from '@/components'
+import {
+  Animals,
+  Computer,
+  Geography,
+  Knowledge,
+  Navbar,
+  Question,
+} from '@/components'
 import { auth } from '@/libs'
 import { QuizProps } from '@/models'
-import { CloseIcon } from '@chakra-ui/icons'
+import { ChevronLeftIcon } from '@chakra-ui/icons'
 import {
   Box,
   Button,
@@ -14,6 +21,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { signOut } from 'firebase/auth'
+import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const getDescription = (category: any): QuizProps => {
@@ -64,16 +72,16 @@ const getDescription = (category: any): QuizProps => {
   }
 }
 
-const getIllustration = (category: any): JSX.Element => {
+const getIllustration = (category: any, size: string): JSX.Element => {
   switch (category) {
     case 'animals':
-      return <Animals position="static" height="160" width="160" />
+      return <Animals position="static" height={size} width={size} />
     case 'knowledge':
-      return <Knowledge position="static" height="160" width="160" />
+      return <Knowledge position="static" height={size} width={size} />
     case 'computer':
-      return <Computer position="static" height="160" width="160" />
+      return <Computer position="static" height={size} width={size} />
     case 'geography':
-      return <Geography position="static" height="160" width="160" />
+      return <Geography position="static" height={size} width={size} />
     default:
       return <div />
   }
@@ -82,8 +90,12 @@ const getIllustration = (category: any): JSX.Element => {
 export const Description = () => {
   const navigate = useNavigate()
   const { category } = useParams()
+  const [isStart, setIsStart] = useState(false)
+
   const categoryData = getDescription(category)
-  const illustration = getIllustration(category)
+  const illustration = getIllustration(category, '160')
+
+  const handleStartQuiz = (condition: boolean) => setIsStart(condition)
 
   const handleLogout = async () => {
     try {
@@ -94,38 +106,53 @@ export const Description = () => {
       console.log('Failed to sign out!')
     }
   }
+
   return (
     <>
       <Navbar logout={handleLogout} />
-      <HStack mt="44px" justifyContent="space-between" alignItems="center">
-        <IconButton
-          borderColor="brand.light"
-          variant="outline"
-          rounded="full"
-          aria-label="Search database"
-          onClick={() => navigate('/')}
-          _hover={{
-            borderColor: 'brand.light',
-          }}
-          _focus={{ backgroundColor: 'transparent' }}
-          icon={<CloseIcon fontSize="sm" />}
+      {isStart ? (
+        <Question
+          handleStartQuiz={handleStartQuiz}
+          getIllustration={() => getIllustration(category, '240')}
         />
-      </HStack>
-      <Box as="main">
-        <Center>{illustration}</Center>
-        <Stack spacing={4}>
-          <VStack alignItems="flex-start">
-            <Text as="span">{categoryData.difficulty}</Text>
-            <Heading as="h1" letterSpacing="wide">
-              {categoryData.title}
-            </Heading>
-          </VStack>
-          <Text as="p">{categoryData.description}</Text>
-          <Button colorScheme="teal" size="lg" fontWeight="normal" w={36}>
-            Game
-          </Button>
-        </Stack>
-      </Box>
+      ) : (
+        <>
+          <HStack mt="44px" justifyContent="space-between" alignItems="center">
+            <IconButton
+              borderColor="brand.light"
+              variant="outline"
+              rounded="full"
+              aria-label="Search database"
+              onClick={() => navigate('/')}
+              _hover={{
+                borderColor: 'brand.light',
+              }}
+              _focus={{ backgroundColor: 'transparent' }}
+              icon={<ChevronLeftIcon fontSize="3xl" />}
+            />
+          </HStack>
+          <Box as="main">
+            <Center>{illustration}</Center>
+            <Stack spacing={4}>
+              <VStack alignItems="flex-start">
+                <Text as="span">{categoryData.difficulty}</Text>
+                <Heading as="h1" letterSpacing="wide">
+                  {categoryData.title}
+                </Heading>
+              </VStack>
+              <Text as="p">{categoryData.description}</Text>
+              <Button
+                onClick={() => handleStartQuiz(true)}
+                colorScheme="teal"
+                size="lg"
+                fontWeight="normal"
+                w={36}>
+                Game
+              </Button>
+            </Stack>
+          </Box>
+        </>
+      )}
     </>
   )
 }

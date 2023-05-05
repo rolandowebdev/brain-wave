@@ -25,7 +25,7 @@ export const Dashboard = () => {
           <Heading as="h1" letterSpacing="wide">
             Let's Play
           </Heading>
-          <Text as="p">Be the first User!</Text>
+          <Text as="p">Be the first!</Text>
         </VStack>
         <Grid templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)']} gap={12}>
           {menus.map((menu) => (
