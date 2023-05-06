@@ -1,12 +1,5 @@
-interface BravewareProps {
-  size: string
-}
-
-export const Braveware = ({ size }: BravewareProps) => {
-  return (
-    <svg
-      width={`${size}px`}
-      height={`${size}px`}
+ <svg
+      width="31.88" height="32"
       viewBox="0 0 486 512"
       fill="none"
       xmlns="http://www.w3.org/2000/svg">
@@ -31,5 +24,3 @@ export const Braveware = ({ size }: BravewareProps) => {
         fill="#E6EDF3"
       />
     </svg>
-  )
-}

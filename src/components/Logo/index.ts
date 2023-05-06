@@ -1,5 +1,5 @@
 export * from './Animals/Animals'
-export * from './Braveware/Braveware'
+export * from './Brainwave/Brainwave'
 export * from './Knowledge/Knowledge'
 export * from './Logout/Logout'
 export * from './Computer/Computer'

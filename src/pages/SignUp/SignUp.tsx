@@ -1,4 +1,4 @@
-import { Braveware, CustomInput } from '@/components'
+import { Brainwave, CustomInput } from '@/components'
 import { ERROR_CODE } from '@/constants'
 import { auth } from '@/libs'
 import {
@@ -78,7 +78,7 @@ export const SignUp = () => {
       justifyContent="center"
       alignItems="center">
       <VStack as="header" spacing="6" mt="8">
-        <Braveware size="64" />
+        <Brainwave size="64" />
         <Heading as="h1" fontWeight="300" fontSize="24px">
           Sign up to Brainwave
         </Heading>

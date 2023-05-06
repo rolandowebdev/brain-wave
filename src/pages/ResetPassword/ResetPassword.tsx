@@ -1,4 +1,4 @@
-import { Braveware, CustomInput } from '@/components'
+import { Brainwave, CustomInput } from '@/components'
 import { auth } from '@/libs'
 import {
   Button,
@@ -54,7 +54,7 @@ export const ResetPassword = () => {
       justifyContent="center"
       alignItems="center">
       <VStack as="header" spacing="6" mt="8">
-        <Braveware size="64" />
+        <Brainwave size="64" />
         <Heading as="h1" fontWeight="300" fontSize="24px">
           Reset your password
         </Heading>
