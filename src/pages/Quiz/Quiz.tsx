@@ -1,6 +1,6 @@
 import { Navbar, Timer } from '@/components'
 import { auth } from '@/libs'
-import { getIllustration } from '@/utils'
+import { getIllustration, getQuizUrl, saveQuizData } from '@/utils'
 import { CloseIcon } from '@chakra-ui/icons'
 import {
   Button,
@@ -16,7 +16,6 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { useAnimalQuiz } from '../../app/animalStore'
 import { MouseEventHandler, useEffect, useState } from 'react'
 import { useAxios } from '@/hooks'
-import { API_URL } from '@/constants'
 import { generateRandom } from '@/libs/generateRandom'
 import { decode } from 'html-entities'
 
@@ -30,17 +29,31 @@ export const Quiz = () => {
     setCorrectAnswer,
     setIncorrectAnswers,
     setQuestionIndex,
-    setNotAnswered,
     correctAnswer,
     incorrectAnswers,
     questionIndex,
   } = useAnimalQuiz()
 
+  const amountOfQuestion = 10
   const [randomAnswers, setRandomAnswers] = useState<string[]>([])
   const [hasNavigatedResult, setHasNavigatedResult] = useState<boolean>(false)
+  const [notAnswer, setNotAnswer] = useState<number>(amountOfQuestion || 0)
 
-  const { response, loading, error } = useAxios({ url: API_URL.ANIMALS })
+  const quizUrl = getQuizUrl(quizName)
+  const { response, loading, error } = useAxios({ url: quizUrl })
   const results = response ? response?.results : []
+
+  const animalQuizData = {
+    questionIndex: questionIndex,
+    questions: results,
+    incorrectAnswers: incorrectAnswers,
+    correctAnswer: correctAnswer,
+    notAnswer: notAnswer,
+  }
+
+  useEffect(() => {
+    if (results?.length) saveQuizData(quizName, animalQuizData)
+  }, [results, questionIndex, incorrectAnswers, correctAnswer, notAnswer])
 
   const handleRandomAnswers = () => {
     const question = results[questionIndex]
@@ -78,7 +91,7 @@ export const Quiz = () => {
     if (isCorrect) setCorrectAnswer(correctAnswer + 1)
     if (isIncorrect) setIncorrectAnswers(incorrectAnswers + 1)
     if (!isCorrect || !isIncorrect)
-      setNotAnswered(results?.length - (incorrectAnswers + correctAnswer) - 1)
+      setNotAnswer(results?.length - (incorrectAnswers + correctAnswer) - 1)
   }
 
   const moveNextQuestion = () => {

@@ -1,3 +1,5 @@
 export * from './getDescription'
 export * from './getIllustration'
 export * from './convertNumberToTimer'
+export * from './saveQuizData'
+export * from './getQuizUrl'

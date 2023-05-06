@@ -14,12 +14,15 @@ import { useNavigate } from 'react-router-dom'
 
 export const Result = () => {
   const navigate = useNavigate()
+  const { resetQuestion, correctAnswer, incorrectAnswers } = useAnimalQuiz()
+
+  const question = JSON.parse(localStorage.getItem('animalQuiz') || 'null')
+  const notAnswer = question.notAnswer
   const amountOfQuestion = 10
-  const { resetQuestion, correctAnswer, incorrectAnswers, notAnswered } =
-    useAnimalQuiz()
 
   const handleBackToDashboard = () => {
     resetQuestion()
+    localStorage.removeItem('animalQuiz')
     navigate('/', { replace: true })
   }
 
@@ -89,7 +92,7 @@ export const Result = () => {
               </CardBody>
               <CardFooter mt={4}>
                 <Text color="gray.400" fontSize="7xl" lineHeight={0}>
-                  {notAnswered}
+                  {notAnswer}
                   <Text as="span" fontSize="lg" color="brand.light">
                     / {amountOfQuestion}
                   </Text>
