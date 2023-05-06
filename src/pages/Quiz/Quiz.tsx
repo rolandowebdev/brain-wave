@@ -30,7 +30,7 @@ const TIMER_COUNT = 30
 export const Quiz = () => {
   const navigate = useNavigate()
   const { quizName } = useParams()
-  const illustration = getIllustration(quizName, '200')
+  const illustration = getIllustration(quizName, 'static', 'small')
 
   const {
     setCorrectAnswer,

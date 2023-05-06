@@ -3,21 +3,22 @@ import { Category, QuizName } from '@/models'
 
 export const getIllustration = (
   name: QuizName | Category,
-  size: string
+  position: 'absolute' | 'static',
+  type: 'small' | 'large'
 ): JSX.Element => {
   switch (name) {
     case 'animalsQuiz':
     case 'animals':
-      return <Animals position="static" height={size} width={size} />
+      return <Animals position={position} type={type} />
     case 'knowledgeQuiz':
     case 'knowledge':
-      return <Knowledge position="static" height={size} width={size} />
+      return <Knowledge position={position} type={type} />
     case 'computerQuiz':
     case 'computer':
-      return <Computer position="static" height={size} width={size} />
+      return <Computer position={position} type={type} />
     case 'geographyQuiz':
     case 'geography':
-      return <Geography position="static" height={size} width={size} />
+      return <Geography position={position} type={type} />
     default:
       return <div />
   }

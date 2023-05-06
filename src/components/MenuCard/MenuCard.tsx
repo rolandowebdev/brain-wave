@@ -1,4 +1,5 @@
 import { QuizProps } from '@/models'
+import { getIllustration } from '@/utils'
 import { StarIcon } from '@chakra-ui/icons'
 import {
   Card,
@@ -10,27 +11,11 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { Animals, Computer, Knowledge, Geography } from '../Logo'
 import { useNavigate } from 'react-router-dom'
-
-const getIllustration = (title: string): JSX.Element => {
-  switch (title) {
-    case 'Animals':
-      return <Animals position="absolute" height="150" width="150" />
-    case 'General Knowledge':
-      return <Knowledge position="absolute" height="150" width="150" />
-    case 'Computer':
-      return <Computer position="absolute" height="150" width="150" />
-    case 'Geography':
-      return <Geography position="absolute" height="150" width="150" />
-    default:
-      return <div />
-  }
-}
 
 export const MenuCard = ({ category, title, difficulty }: QuizProps) => {
   const navigate = useNavigate()
-  const illustration = getIllustration(title)
+  const illustration = getIllustration(category, 'absolute', 'large')
   return (
     <Card
       backgroundColor="brand.softDark"

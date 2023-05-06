@@ -22,7 +22,7 @@ export const Description = () => {
   const { category } = useParams()
 
   const categoryData = getDescription(category)
-  const illustration = getIllustration(category, '160')
+  const illustration = getIllustration(category, 'static', 'small')
 
   const quizKey = getKeyStorage(category)
   const keyExists = isLocalStorageKeyExist(quizKey)
