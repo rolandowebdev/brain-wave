@@ -1,4 +1,6 @@
+import { useAnimalQuiz } from '@/app/animalStore'
 import {
+  Button,
   Card,
   CardBody,
   CardFooter,
@@ -6,12 +8,21 @@ import {
   Grid,
   GridItem,
   Heading,
-  Link,
   Text,
 } from '@chakra-ui/react'
-import { Link as RouterLink } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export const Result = () => {
+  const navigate = useNavigate()
+  const amountOfQuestion = 10
+  const { resetQuestion, correctAnswer, incorrectAnswers, notAnswered } =
+    useAnimalQuiz()
+
+  const handleBackToDashboard = () => {
+    resetQuestion()
+    navigate('/', { replace: true })
+  }
+
   return (
     <>
       <Container
@@ -20,7 +31,7 @@ export const Result = () => {
         flexDir="column"
         justifyContent="center"
         alignItems="center"
-        height="100vh">
+        height="{amountOfQuestion}0vh">
         <Heading as="h1">Your Final Result</Heading>
         <Grid templateColumns="repeat(2, 1fr)" w="full" gap={4} mt={8} mb={4}>
           <GridItem>
@@ -36,9 +47,9 @@ export const Result = () => {
               </CardBody>
               <CardFooter mt={4}>
                 <Text color="teal" fontSize="7xl" lineHeight={0}>
-                  6
+                  {correctAnswer}
                   <Text as="span" fontSize="lg" color="brand.light">
-                    / 10
+                    / {amountOfQuestion}
                   </Text>
                 </Text>
               </CardFooter>
@@ -57,9 +68,9 @@ export const Result = () => {
               </CardBody>
               <CardFooter mt={4}>
                 <Text color="red.500" fontSize="7xl" lineHeight={0}>
-                  4
+                  {incorrectAnswers}
                   <Text as="span" fontSize="lg" color="brand.light">
-                    / 10
+                    / {amountOfQuestion}
                   </Text>
                 </Text>
               </CardFooter>
@@ -78,27 +89,23 @@ export const Result = () => {
               </CardBody>
               <CardFooter mt={4}>
                 <Text color="gray.400" fontSize="7xl" lineHeight={0}>
-                  0
+                  {notAnswered}
                   <Text as="span" fontSize="lg" color="brand.light">
-                    / 10
+                    / {amountOfQuestion}
                   </Text>
                 </Text>
               </CardFooter>
             </Card>
           </GridItem>
         </Grid>
-        <Link
-          as={RouterLink}
-          replace={true}
-          to="/"
-          bg="brand.secondary"
+        <Button
+          bgColor="brand.secondary"
+          fontWeight="normal"
           w="full"
-          py={3}
-          textAlign="center"
-          rounded="md"
-          _hover={{ textDecoration: 'none', bg: '#1f7631' }}>
+          size="lg"
+          onClick={handleBackToDashboard}>
           Back to Dashboard
-        </Link>
+        </Button>
       </Container>
     </>
   )

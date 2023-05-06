@@ -1,9 +1,9 @@
+import { Question } from '@/models'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 interface AnimalState {
-  questions: Array<any>
-  amountOfQuestion: number
+  questions: Question[]
   correctAnswer: number
   incorrectAnswers: number
   notAnswered: number
@@ -12,7 +12,6 @@ interface AnimalState {
 
 interface AnimalActions {
   resetQuestion: () => void
-  setAmountOfQuestion: (amount: number) => void
   setCorrectAnswer: (answer: number) => void
   setIncorrectAnswers: (answers: number) => void
   setNotAnswered: (notAnswered: number) => void
@@ -21,7 +20,6 @@ interface AnimalActions {
 
 const initialState: AnimalState = {
   questions: [],
-  amountOfQuestion: 0,
   correctAnswer: 0,
   incorrectAnswers: 0,
   notAnswered: 0,
@@ -42,8 +40,6 @@ export const useAnimalQuiz = create<AnimalState & AnimalActions>()(
           notAnswered: 0,
           questionIndex: 0,
         })),
-      setAmountOfQuestion: (amount: number) =>
-        set({ amountOfQuestion: amount }),
       setCorrectAnswer: (answer: number) => set({ correctAnswer: answer }),
       setIncorrectAnswers: (answers: number) =>
         set({ incorrectAnswers: answers }),

@@ -31,7 +31,6 @@ export const Quiz = () => {
     setIncorrectAnswers,
     setQuestionIndex,
     setNotAnswered,
-    amountOfQuestion,
     correctAnswer,
     incorrectAnswers,
     questionIndex,
@@ -74,12 +73,12 @@ export const Quiz = () => {
     return { isCorrect, isIncorrect }
   }
 
-  const updateAnswerCount = (answer: string | null) => {
+  const updateAnswerCount = (answer: any) => {
     const { isCorrect, isIncorrect } = checkAnswer(answer)
     if (isCorrect) setCorrectAnswer(correctAnswer + 1)
     if (isIncorrect) setIncorrectAnswers(incorrectAnswers + 1)
     if (!isCorrect || !isIncorrect)
-      setNotAnswered(results.length - (incorrectAnswers + correctAnswer) - 1)
+      setNotAnswered(results?.length - (incorrectAnswers + correctAnswer) - 1)
   }
 
   const moveNextQuestion = () => {
@@ -143,7 +142,7 @@ export const Quiz = () => {
               borderRadius="md">
               Correct :{' '}
               <Text as="span" color="teal">
-                {correctAnswer} / {amountOfQuestion}
+                {correctAnswer} / {results?.length}
               </Text>
             </Text>
             <Text
@@ -157,7 +156,7 @@ export const Quiz = () => {
               borderRadius="md">
               InCorrect :{' '}
               <Text as="span" color="red.500">
-                {incorrectAnswers} / {amountOfQuestion}
+                {incorrectAnswers} / {results?.length}
               </Text>
             </Text>
             <Timer time={results?.length * TIMER_COUNT} />
