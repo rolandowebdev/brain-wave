@@ -10,7 +10,7 @@ export const getDescription = (category: any): QuizProps => {
         difficulty: 'Easy',
         quizName: 'animalsQuiz',
         description:
-          'Animals are living organisms that come in a wide range of shapes and sizes, found in almost every habitat on Earth. They are able to move using muscles and limbs, allowing them to find food, mates, and shelter, as well as avoid predators. Animals obtain their food by consuming other organisms and require water, air, and shelter to survive. They are classified into different groups based on their characteristics, such as their body structure, reproductive strategies, and behavior.',
+          'Animals are multicellular organisms that live in diverse habitats and have a wide range of adaptations. They can be classified into various groups based on characteristics such as body structure, diet, and reproductive strategies. Some animals are domesticated and used for food, clothing, or labor, while others play important ecological roles as pollinators, predators, or prey. The study of animals, or zoology, helps us understand the diversity and complexity of the natural world and our relationship with it.',
       }
     case 'knowledge':
       return {
@@ -20,7 +20,7 @@ export const getDescription = (category: any): QuizProps => {
         difficulty: 'Medium',
         quizName: 'knowledgeQuiz',
         description:
-          'Knowledge is a broad term that refers to the information, skills, and understanding that we acquire through education, experience, and observation. It is the accumulation of facts, ideas, and concepts that enable us to make sense of the world around us and to make informed decisions. Knowledge can be classified into different categories, such as theoretical knowledge, practical knowledge, and experiential knowledge. It is often viewed as a valuable asset that can be used to solve problems, innovate, and achieve goals. However, knowledge is also dynamic and constantly evolving, as new discoveries are made and new ideas are formed.',
+          'Knowledge is the understanding and awareness of information gained through experience, education, or observation. It can be explicit or tacit, and is constantly evolving as new information is acquired. The pursuit of knowledge is a fundamental aspect of human curiosity and enables us to innovate, problem-solve, and make informed decisions. Knowledge can be applied to many areas of life, from personal growth to scientific research, and is considered an essential resource for personal and societal development.',
       }
     case 'computer':
       return {
@@ -30,7 +30,7 @@ export const getDescription = (category: any): QuizProps => {
         difficulty: 'Hard',
         quizName: 'computerQuiz',
         description:
-          'A computer is an electronic device that is capable of processing and storing data. It consists of hardware components, such as a central processing unit (CPU), memory, and storage devices, as well as software programs that allow users to perform various tasks, such as word processing, web browsing, and gaming. Computers can be classified into different types, such as desktops, laptops, and tablets, and they are used in a wide range of applications, including business, education, entertainment, and research. With the advent of the internet, computers have become an integral part of our daily lives, allowing us to communicate with others, access information, and perform tasks from virtually anywhere in the world.',
+          'A computer is an electronic device that processes and stores data. It consists of a CPU, memory, input/output devices, and storage devices. Together, these components enable computers to perform a wide range of tasks, from basic word processing to complex simulations and calculations.',
       }
     case 'geography':
       return {
@@ -40,7 +40,7 @@ export const getDescription = (category: any): QuizProps => {
         difficulty: 'Easy',
         quizName: 'geographyQuiz',
         description:
-          'Geography is a field of study that focuses on the earth and its physical and human features. It is concerned with understanding the relationships between natural phenomena, such as landforms, climate, and ecosystems, and human activities, such as population distribution, economic development, and cultural practices. Geographers use a variety of tools and techniques, including maps, remote sensing, and geographic information systems (GIS), to gather and analyze data. The knowledge and insights gained through the study of geography are used to address a wide range of global issues, such as climate change, natural resource management, and urban planning.',
+          "Geography studies the Earth's physical features, atmosphere, and human activity. It examines how natural and cultural factors shape landscapes and ecosystems, and how people interact with their environments. Physical geography focuses on natural features, while human geography looks at population distribution and cultural landscapes.",
       }
     default:
       return {

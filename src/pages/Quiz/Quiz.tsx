@@ -1,6 +1,14 @@
 import { Navbar, Timer } from '@/components'
 import { auth } from '@/libs'
-import { getIllustration, getQuizUrl, saveQuizData } from '@/utils'
+import {
+  getIllustration,
+  getKeyStorage,
+  getQuizResult,
+  getQuizUrl,
+  isLocalStorageKeyExist,
+  saveQuizData,
+  useQuiz,
+} from '@/utils'
 import { CloseIcon } from '@chakra-ui/icons'
 import {
   Button,
@@ -9,11 +17,9 @@ import {
   Stack,
   Text,
   VStack,
-  Wrap,
 } from '@chakra-ui/react'
 import { signOut } from 'firebase/auth'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
-import { useAnimalQuiz } from '../../app/animalStore'
 import { MouseEventHandler, useEffect, useState } from 'react'
 import { useAxios } from '@/hooks'
 import { generateRandom } from '@/libs/generateRandom'
@@ -25,6 +31,7 @@ export const Quiz = () => {
   const navigate = useNavigate()
   const { quizName } = useParams()
   const illustration = getIllustration(quizName, '200')
+
   const {
     setCorrectAnswer,
     setIncorrectAnswers,
@@ -32,7 +39,7 @@ export const Quiz = () => {
     correctAnswer,
     incorrectAnswers,
     questionIndex,
-  } = useAnimalQuiz()
+  } = useQuiz(quizName)
 
   const amountOfQuestion = 10
   const [randomAnswers, setRandomAnswers] = useState<string[]>([])
@@ -40,8 +47,18 @@ export const Quiz = () => {
   const [notAnswer, setNotAnswer] = useState<number>(amountOfQuestion || 0)
 
   const quizUrl = getQuizUrl(quizName)
+  const resultQuizUrl = getQuizResult(quizName)
+
+  const quizKey = getKeyStorage(quizName)
+  const keyExists = isLocalStorageKeyExist(quizKey)
+
   const { response, loading, error } = useAxios({ url: quizUrl })
   const results = response ? response?.results : []
+
+  const newGameTimer = notAnswer * TIMER_COUNT
+  const continueGameTimer = (notAnswer - questionIndex) * TIMER_COUNT
+
+  console.log(quizName)
 
   const animalQuizData = {
     questionIndex: questionIndex,
@@ -115,7 +132,8 @@ export const Quiz = () => {
     }
   }
 
-  if (hasNavigatedResult) return <Navigate to="/result" replace={true} />
+  if (hasNavigatedResult)
+    return <Navigate to={`${resultQuizUrl}`} replace={true} />
 
   if (loading) return <Text>Loading...</Text>
   if (error) return <Text>Error</Text>
@@ -172,18 +190,18 @@ export const Quiz = () => {
                 {incorrectAnswers} / {results?.length}
               </Text>
             </Text>
-            <Timer time={results?.length * TIMER_COUNT} />
+            <Timer time={keyExists ? continueGameTimer : newGameTimer} />
           </VStack>
         </VStack>
         <VStack flex={1} alignItems="flex-start" gap={4}>
-          <Wrap>
+          <VStack alignItems="flex-start">
             <Text as="span">
               question {questionIndex + 1} of {results?.length}
             </Text>
-            <Heading as="h1">
+            <Heading as="h1" fontSize="xl">
               {decode(results[questionIndex]?.question)}
             </Heading>
-          </Wrap>
+          </VStack>
           <VStack gap={2} w="full">
             {randomAnswers.map((randomAnswer) => (
               <Button

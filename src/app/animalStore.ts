@@ -24,10 +24,8 @@ export const useAnimalQuiz = create<AnimalState & AnimalActions>()((set) => ({
   resetQuestion: () =>
     set((state) => ({
       ...state,
-      amountOfQuestion: 0,
       correctAnswer: 0,
       incorrectAnswers: 0,
-      notAnswer: 0,
       questionIndex: 0,
     })),
   setCorrectAnswer: (answer: number) => set({ correctAnswer: answer }),

@@ -1,4 +1,8 @@
 import { useAnimalQuiz } from '@/app/animalStore'
+import { useComputerQuiz } from '@/app/computerStore'
+import { useGeographyQuiz } from '@/app/geographyStore'
+import { useKnowledgeQuiz } from '@/app/knowledgeStore'
+import { getKeyStorage } from '@/utils'
 import {
   Button,
   Card,
@@ -10,19 +14,38 @@ import {
   Heading,
   Text,
 } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+
+const useResultQuiz = (quizType: any) => {
+  switch (quizType) {
+    case 'resultAnimalsQuiz':
+      return useAnimalQuiz()
+    case 'resultKnowledgeQuiz':
+      return useKnowledgeQuiz()
+    case 'resultComputerQuiz':
+      return useComputerQuiz()
+    case 'resultGeographyQuiz':
+      return useGeographyQuiz()
+    default:
+      throw new Error('Invalid quiz type')
+  }
+}
 
 export const Result = () => {
   const navigate = useNavigate()
-  const { resetQuestion, correctAnswer, incorrectAnswers } = useAnimalQuiz()
+  const { resultQuizName } = useParams()
+  const { resetQuestion, correctAnswer, incorrectAnswers } =
+    useResultQuiz(resultQuizName)
 
-  const question = JSON.parse(localStorage.getItem('animalQuiz') || 'null')
+  const keyStorage = getKeyStorage(resultQuizName)
+
+  const question = JSON.parse(localStorage.getItem(keyStorage) || 'null')
   const notAnswer = question.notAnswer
   const amountOfQuestion = 10
 
   const handleBackToDashboard = () => {
     resetQuestion()
-    localStorage.removeItem('animalQuiz')
+    localStorage.removeItem(keyStorage)
     navigate('/', { replace: true })
   }
 
@@ -34,7 +57,7 @@ export const Result = () => {
         flexDir="column"
         justifyContent="center"
         alignItems="center"
-        height="{amountOfQuestion}0vh">
+        height="100vh">
         <Heading as="h1">Your Final Result</Heading>
         <Grid templateColumns="repeat(2, 1fr)" w="full" gap={4} mt={8} mb={4}>
           <GridItem>

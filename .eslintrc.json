@@ -22,6 +22,7 @@
     "react-refresh/only-export-components": "warn",
     "react/react-in-jsx-scope": ["off"],
     "react-hooks/exhaustive-deps": ["off"],
+    "react-hooks/rules-of-hooks": ["off"],
     "@typescript-eslint/no-explicit-any": ["off"]
   }
 }

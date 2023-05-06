@@ -1,6 +1,6 @@
 import { Navbar } from '@/components'
 import { auth } from '@/libs'
-import { getDescription } from '@/utils'
+import { getDescription, getKeyStorage, isLocalStorageKeyExist } from '@/utils'
 import { getIllustration } from '@/utils'
 import { ChevronLeftIcon } from '@chakra-ui/icons'
 import {
@@ -23,6 +23,9 @@ export const Description = () => {
 
   const categoryData = getDescription(category)
   const illustration = getIllustration(category, '160')
+
+  const quizKey = getKeyStorage(category)
+  const keyExists = isLocalStorageKeyExist(quizKey)
 
   const handleLogout = async () => {
     try {
@@ -72,7 +75,7 @@ export const Description = () => {
             size="lg"
             fontWeight="normal"
             w={36}>
-            Game
+            {keyExists ? 'Continue' : 'Game'}
           </Button>
         </Stack>
       </Box>

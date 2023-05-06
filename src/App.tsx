@@ -20,14 +20,6 @@ const App = () => {
               />
               <Route path="signin" element={<SignIn />} />
               <Route path="signup" element={<SignUp />} />
-              <Route
-                path="result"
-                element={
-                  <PrivateRoutes>
-                    <Result />
-                  </PrivateRoutes>
-                }
-              />
               <Route path=":category">
                 <Route
                   index
@@ -37,7 +29,20 @@ const App = () => {
                     </PrivateRoutes>
                   }
                 />
-                <Route path=":quizName" element={<Quiz />} />
+                <Route path=":quizName">
+                  <Route
+                    index
+                    element={<PrivateRoutes>{<Quiz />}</PrivateRoutes>}
+                  />
+                  <Route
+                    path=":resultQuizName"
+                    element={
+                      <PrivateRoutes>
+                        <Result />
+                      </PrivateRoutes>
+                    }
+                  />
+                </Route>
               </Route>
             </Route>
           </Routes>
