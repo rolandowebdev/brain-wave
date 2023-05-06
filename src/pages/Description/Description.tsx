@@ -59,7 +59,7 @@ export const Description = () => {
           icon={<ChevronLeftIcon fontSize="3xl" />}
         />
       </HStack>
-      <Box as="main" pb="44px">
+      <Box as="main" pb="40px">
         <Center>{illustration}</Center>
         <Stack spacing={4}>
           <VStack alignItems="flex-start">

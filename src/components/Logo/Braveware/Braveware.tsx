@@ -1,8 +1,8 @@
-interface GithubProps {
+interface BravewareProps {
   size: string
 }
 
-export const Github = ({ size }: GithubProps) => {
+export const Braveware = ({ size }: BravewareProps) => {
   return (
     <svg
       width={`${size}px`}

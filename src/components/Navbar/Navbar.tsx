@@ -14,7 +14,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
-import { Logout } from '../Logo'
+import { Braveware, Logout } from '../Logo'
 
 interface NavbarProps {
   logout: () => Promise<void>
@@ -24,18 +24,21 @@ export const Navbar = ({ logout }: NavbarProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <HStack h="64px" justifyContent="space-between" alignItems="center">
-      <Link
-        as={RouterLink}
-        to="/"
-        fontSize="2xl"
-        fontWeight="bold"
-        letterSpacing="wide"
-        _hover={{
-          color: 'green.400',
-        }}
-        _focus={{ color: 'green.400' }}>
-        Brainwave
-      </Link>
+      <HStack>
+        <Braveware size="38" />
+        <Link
+          as={RouterLink}
+          to="/"
+          fontSize="2xl"
+          fontWeight="bold"
+          letterSpacing="wide"
+          _hover={{
+            color: 'green.400',
+          }}
+          _focus={{ color: 'green.400' }}>
+          Brainwave
+        </Link>
+      </HStack>
       <IconButton
         onClick={onOpen}
         borderColor="brand.light"
