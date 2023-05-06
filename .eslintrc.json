@@ -21,6 +21,7 @@
     "import/prefer-default-export": ["off"],
     "react-refresh/only-export-components": "warn",
     "react/react-in-jsx-scope": ["off"],
+    "react-hooks/exhaustive-deps": ["off"],
     "@typescript-eslint/no-explicit-any": ["off"]
   }
 }

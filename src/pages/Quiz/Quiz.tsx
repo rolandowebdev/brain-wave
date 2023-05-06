@@ -1,4 +1,4 @@
-import { Navbar } from '@/components'
+import { Navbar, Timer } from '@/components'
 import { auth } from '@/libs'
 import { getIllustration } from '@/utils'
 import { CloseIcon } from '@chakra-ui/icons'
@@ -12,13 +12,86 @@ import {
   Wrap,
 } from '@chakra-ui/react'
 import { signOut } from 'firebase/auth'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { useAnimalQuiz } from '../../app/animalStore'
+import { MouseEventHandler, useEffect, useState } from 'react'
+import { useAxios } from '@/hooks'
+import { API_URL } from '@/constants'
+import { generateRandom } from '@/libs/generateRandom'
+import { decode } from 'html-entities'
+
+const TIMER_COUNT = 30
 
 export const Quiz = () => {
   const navigate = useNavigate()
   const { quizName } = useParams()
-
   const illustration = getIllustration(quizName, '200')
+  const {
+    setCorrectAnswer,
+    setIncorrectAnswers,
+    setQuestionIndex,
+    setNotAnswered,
+    amountOfQuestion,
+    correctAnswer,
+    incorrectAnswers,
+    questionIndex,
+  } = useAnimalQuiz()
+
+  const [randomAnswers, setRandomAnswers] = useState<string[]>([])
+  const [hasNavigatedResult, setHasNavigatedResult] = useState<boolean>(false)
+
+  const { response, loading, error } = useAxios({ url: API_URL.ANIMALS })
+  const results = response ? response?.results : []
+
+  const handleRandomAnswers = () => {
+    const question = results[questionIndex]
+    const answers = [...question.incorrect_answers]
+    answers.splice(
+      generateRandom(question.incorrect_answers.length),
+      0,
+      question.correct_answer
+    )
+    setRandomAnswers(answers)
+  }
+
+  useEffect(() => {
+    if (!loading && results?.length) handleRandomAnswers()
+  }, [loading, results, questionIndex])
+
+  const decodeAnswers = () => {
+    const question = results[questionIndex]
+    const decodeCorrectAnswer = decode(question.correct_answer)
+    const decodeIncorrectAnswer = question.incorrect_answers.map(
+      (incorrectAnswer: string) => decode(incorrectAnswer)
+    )
+    return { decodeCorrectAnswer, decodeIncorrectAnswer }
+  }
+
+  const checkAnswer = (answer: any) => {
+    const { decodeCorrectAnswer, decodeIncorrectAnswer } = decodeAnswers()
+    const isCorrect = decodeCorrectAnswer.includes(answer)
+    const isIncorrect = decodeIncorrectAnswer.includes(answer)
+    return { isCorrect, isIncorrect }
+  }
+
+  const updateAnswerCount = (answer: string | null) => {
+    const { isCorrect, isIncorrect } = checkAnswer(answer)
+    if (isCorrect) setCorrectAnswer(correctAnswer + 1)
+    if (isIncorrect) setIncorrectAnswers(incorrectAnswers + 1)
+    if (!isCorrect || !isIncorrect)
+      setNotAnswered(results.length - (incorrectAnswers + correctAnswer) - 1)
+  }
+
+  const moveNextQuestion = () => {
+    if (questionIndex + 1 >= results?.length) setHasNavigatedResult(true)
+    else setQuestionIndex(questionIndex + 1)
+  }
+
+  const handleAnswers: MouseEventHandler<HTMLButtonElement> = (e) => {
+    const answer = e.currentTarget.textContent
+    updateAnswerCount(answer)
+    moveNextQuestion()
+  }
 
   const handleLogout = async () => {
     try {
@@ -29,6 +102,12 @@ export const Quiz = () => {
       console.log('Failed to sign out!')
     }
   }
+
+  if (hasNavigatedResult) return <Navigate to="/result" replace={true} />
+
+  if (loading) return <Text>Loading...</Text>
+  if (error) return <Text>Error</Text>
+
   return (
     <>
       <Navbar logout={handleLogout} />
@@ -64,7 +143,7 @@ export const Quiz = () => {
               borderRadius="md">
               Correct :{' '}
               <Text as="span" color="teal">
-                5 / 10
+                {correctAnswer} / {amountOfQuestion}
               </Text>
             </Text>
             <Text
@@ -78,67 +157,37 @@ export const Quiz = () => {
               borderRadius="md">
               InCorrect :{' '}
               <Text as="span" color="red.500">
-                1 / 10
+                {incorrectAnswers} / {amountOfQuestion}
               </Text>
             </Text>
-            <Text
-              w="full"
-              px={3}
-              py={2}
-              backgroundColor="brand.softDark"
-              borderRadius="md">
-              00:10:53
-            </Text>
+            <Timer time={results?.length * TIMER_COUNT} />
           </VStack>
         </VStack>
         <VStack flex={1} alignItems="flex-start" gap={4}>
           <Wrap>
-            <Text as="span">question 5 of 10</Text>
+            <Text as="span">
+              question {questionIndex + 1} of {results?.length}
+            </Text>
             <Heading as="h1">
-              In which city of Germany is the largest port?
+              {decode(results[questionIndex]?.question)}
             </Heading>
           </Wrap>
           <VStack gap={2} w="full">
-            <Button
-              backgroundColor="brand.softDark"
-              size="lg"
-              w="full"
-              _hover={{
-                backgroundColor: 'brand.light',
-                color: 'brand.softDark',
-              }}>
-              Bremen
-            </Button>
-            <Button
-              backgroundColor="brand.softDark"
-              size="lg"
-              w="full"
-              _hover={{
-                backgroundColor: 'brand.light',
-                color: 'brand.softDark',
-              }}>
-              Hamburg
-            </Button>
-            <Button
-              backgroundColor="brand.softDark"
-              size="lg"
-              w="full"
-              _hover={{
-                backgroundColor: 'brand.light',
-                color: 'brand.softDark',
-              }}>
-              Norden
-            </Button>
-            <Button
-              backgroundColor="brand.softDark"
-              size="lg"
-              w="full"
-              _hover={{
-                backgroundColor: 'brand.light',
-                color: 'brand.softDark',
-              }}>
-              Paris
-            </Button>
+            {randomAnswers.map((randomAnswer) => (
+              <Button
+                onClick={handleAnswers}
+                key={randomAnswer}
+                value={decode(randomAnswer)}
+                backgroundColor="brand.softDark"
+                size="lg"
+                w="full"
+                _hover={{
+                  backgroundColor: 'brand.light',
+                  color: 'brand.softDark',
+                }}>
+                {decode(randomAnswer)}
+              </Button>
+            ))}
           </VStack>
         </VStack>
       </Stack>
