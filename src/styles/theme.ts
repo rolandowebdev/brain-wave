@@ -11,7 +11,7 @@ const colors = {
     softDark: '#161b22',
     border: '#21262d',
     light: '#e6edf3',
-    primary: '#2f81f7',
+    blue: '#2f81f7',
   },
 }
 

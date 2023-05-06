@@ -7,7 +7,7 @@ export const getBackground = (category: any) => {
     case 'computer':
       return 'linear(to-l,  #6ECCAF, #03C988)'
     case 'geography':
-      return 'linear(to-r,  #E0144C, #6F1AB6)'
+      return 'linear(to-r,  #FF55BB, #7149C6)'
     default:
       throw new Error('Invalid color')
   }

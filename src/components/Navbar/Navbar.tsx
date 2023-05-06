@@ -2,6 +2,7 @@ import {
   Button,
   HStack,
   IconButton,
+  Link,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -12,6 +13,7 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom'
 import { Logout } from '../Logo'
 
 interface NavbarProps {
@@ -22,9 +24,18 @@ export const Navbar = ({ logout }: NavbarProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <HStack h="64px" justifyContent="space-between" alignItems="center">
-      <Text as="span" fontSize="2xl" fontWeight="bold" letterSpacing="wide">
+      <Link
+        as={RouterLink}
+        to="/"
+        fontSize="2xl"
+        fontWeight="bold"
+        letterSpacing="wide"
+        _hover={{
+          color: 'green.400',
+        }}
+        _focus={{ color: 'green.400' }}>
         Brainwave
-      </Text>
+      </Link>
       <IconButton
         onClick={onOpen}
         borderColor="brand.light"
@@ -32,9 +43,10 @@ export const Navbar = ({ logout }: NavbarProps) => {
         rounded="full"
         aria-label="Search database"
         _hover={{
-          borderColor: 'brand.light',
+          bgColor: 'green.400',
+          borderColor: 'green.400',
         }}
-        _focus={{ backgroundColor: 'transparent' }}
+        _focus={{ bgColor: 'green.400', borderColor: 'green.400' }}
         icon={<Logout size="19" color="#e6edf3" />}
       />
       <Modal isOpen={isOpen} onClose={onClose}>

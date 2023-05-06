@@ -31,14 +31,12 @@ export const MenuCard = ({ category, title, difficulty }: QuizProps) => {
       <Stack>
         <CardBody position="relative">
           <IconButton
-            _hover={{
-              borderColor: 'brand.primary',
-            }}
             borderColor="brand.light"
             variant="outline"
             rounded="xl"
             aria-label="Search database"
             icon={<StarIcon />}
+            _hover={{ bgColor: 'transparent' }}
           />
           {illustration}
         </CardBody>

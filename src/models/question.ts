@@ -3,5 +3,5 @@ export interface Quiz {
   questions: any[]
   incorrectAnswers: number
   correctAnswer: number
-  notAnswer: number
+  notAnswerd: number
 }

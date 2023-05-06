@@ -44,7 +44,7 @@ export const Quiz = () => {
   const amountOfQuestion = 10
   const [randomAnswers, setRandomAnswers] = useState<string[]>([])
   const [hasNavigatedResult, setHasNavigatedResult] = useState<boolean>(false)
-  const [notAnswer, setNotAnswer] = useState<number>(amountOfQuestion || 0)
+  const [notAnswerd, setNotAnswerd] = useState<number>(amountOfQuestion || 0)
 
   const quizUrl = getQuizUrl(quizName)
   const resultQuizUrl = getQuizResult(quizName)
@@ -55,8 +55,8 @@ export const Quiz = () => {
   const { response, loading, error } = useAxios({ url: quizUrl })
   const results = response ? response?.results : []
 
-  const newGameTimer = notAnswer * TIMER_COUNT
-  const continueGameTimer = (notAnswer - questionIndex) * TIMER_COUNT
+  const newGameTimer = notAnswerd * TIMER_COUNT
+  const continueGameTimer = (notAnswerd - questionIndex) * TIMER_COUNT
 
   console.log(quizName)
 
@@ -65,12 +65,12 @@ export const Quiz = () => {
     questions: results,
     incorrectAnswers: incorrectAnswers,
     correctAnswer: correctAnswer,
-    notAnswer: notAnswer,
+    notAnswerd: notAnswerd,
   }
 
   useEffect(() => {
     if (results?.length) saveQuizData(quizName, animalQuizData)
-  }, [results, questionIndex, incorrectAnswers, correctAnswer, notAnswer])
+  }, [results, questionIndex, incorrectAnswers, correctAnswer, notAnswerd])
 
   const handleRandomAnswers = () => {
     const question = results[questionIndex]
@@ -108,7 +108,7 @@ export const Quiz = () => {
     if (isCorrect) setCorrectAnswer(correctAnswer + 1)
     if (isIncorrect) setIncorrectAnswers(incorrectAnswers + 1)
     if (!isCorrect || !isIncorrect)
-      setNotAnswer(results?.length - (incorrectAnswers + correctAnswer) - 1)
+      setNotAnswerd(results?.length - (incorrectAnswers + correctAnswer) - 1)
   }
 
   const moveNextQuestion = () => {
@@ -149,9 +149,10 @@ export const Quiz = () => {
         rounded="full"
         aria-label="Search database"
         _hover={{
-          borderColor: 'brand.light',
+          bgColor: 'green.400',
+          borderColor: 'green.400',
         }}
-        _focus={{ backgroundColor: 'transparent' }}
+        _focus={{ bgColor: 'green.400', borderColor: 'green.400' }}
         icon={<CloseIcon fontSize="sm" />}
       />
       <Stack

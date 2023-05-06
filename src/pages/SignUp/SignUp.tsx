@@ -136,7 +136,7 @@ export const SignUp = () => {
           <Center>
             <HStack fontSize="sm" spacing="1">
               <Text>Already have an account?</Text>
-              <Link as={RouterLink} to="/signin" color="brand.primary">
+              <Link as={RouterLink} to="/signin" color="brand.blue">
                 Sign In
               </Link>
             </HStack>

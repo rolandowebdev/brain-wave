@@ -40,7 +40,7 @@ export const Result = () => {
   const keyStorage = getKeyStorage(resultQuizName)
 
   const question = JSON.parse(localStorage.getItem(keyStorage) || 'null')
-  const notAnswer = question.notAnswer
+  const notAnswerd = question.notAnswerd
   const amountOfQuestion = 10
 
   const handleBackToDashboard = () => {
@@ -72,7 +72,7 @@ export const Result = () => {
                 </Heading>
               </CardBody>
               <CardFooter mt={4}>
-                <Text color="teal" fontSize="7xl" lineHeight={0}>
+                <Text color="green.400" fontSize="7xl" lineHeight={0}>
                   {correctAnswer}
                   <Text as="span" fontSize="lg" color="brand.light">
                     / {amountOfQuestion}
@@ -93,7 +93,7 @@ export const Result = () => {
                 </Heading>
               </CardBody>
               <CardFooter mt={4}>
-                <Text color="red.500" fontSize="7xl" lineHeight={0}>
+                <Text color="red.400" fontSize="7xl" lineHeight={0}>
                   {incorrectAnswers}
                   <Text as="span" fontSize="lg" color="brand.light">
                     / {amountOfQuestion}
@@ -115,7 +115,7 @@ export const Result = () => {
               </CardBody>
               <CardFooter mt={4}>
                 <Text color="gray.400" fontSize="7xl" lineHeight={0}>
-                  {notAnswer}
+                  {notAnswerd}
                   <Text as="span" fontSize="lg" color="brand.light">
                     / {amountOfQuestion}
                   </Text>

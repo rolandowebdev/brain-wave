@@ -53,9 +53,10 @@ export const Description = () => {
           aria-label="Search database"
           onClick={() => navigate('/')}
           _hover={{
-            borderColor: 'brand.light',
+            bgColor: 'green.400',
+            borderColor: 'green.400',
           }}
-          _focus={{ backgroundColor: 'transparent' }}
+          _focus={{ bgColor: 'green.400', borderColor: 'green.400' }}
           icon={<ChevronLeftIcon fontSize="3xl" />}
         />
       </HStack>

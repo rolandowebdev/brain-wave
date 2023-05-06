@@ -113,7 +113,7 @@ export const SignIn = () => {
                     href="#"
                     variant="link"
                     fontSize="xs"
-                    color="brand.primary"
+                    color="brand.blue"
                     fontWeight="500">
                     Forgot password?
                   </Button>
@@ -141,7 +141,7 @@ export const SignIn = () => {
           <Center>
             <HStack fontSize="sm" spacing="1">
               <Text>New to Brainwave?</Text>
-              <Link as={RouterLink} to="/signup" color="brand.primary">
+              <Link as={RouterLink} to="/signup" color="brand.blue">
                 Create an account
               </Link>
             </HStack>
