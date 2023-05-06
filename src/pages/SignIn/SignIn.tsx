@@ -14,6 +14,7 @@ import {
   HStack,
   Heading,
   Link,
+  Spinner,
   Stack,
   Text,
   VStack,
@@ -109,8 +110,7 @@ export const SignIn = () => {
                 <HStack justify="space-between">
                   <FormLabel fontSize="sm">Password</FormLabel>
                   <Button
-                    as="a"
-                    href="#"
+                    onClick={() => navigate('/resetPassword')}
                     variant="link"
                     fontSize="xs"
                     color="brand.blue"
@@ -125,7 +125,17 @@ export const SignIn = () => {
                 colorScheme="green"
                 fontWeight="300"
                 size="sm">
-                {loading ? 'loading...' : 'Sign in'}
+                {loading ? (
+                  <Spinner
+                    thickness="4px"
+                    speed="0.65s"
+                    emptyColor="gray.200"
+                    color="green.400"
+                    size="sm"
+                  />
+                ) : (
+                  'Sign in'
+                )}
               </Button>
             </Stack>
           </form>

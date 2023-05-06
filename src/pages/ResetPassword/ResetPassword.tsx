@@ -1,70 +1,46 @@
 import { Braveware, CustomInput } from '@/components'
-import { ERROR_CODE } from '@/constants'
 import { auth } from '@/libs'
 import {
-  Alert,
-  AlertIcon,
   Button,
   Card,
   CardBody,
   Center,
   FormControl,
   FormLabel,
-  HStack,
   Heading,
-  Link,
   Spinner,
   Stack,
-  Text,
   VStack,
+  Alert,
+  AlertIcon,
+  HStack,
+  Link,
 } from '@chakra-ui/react'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { sendPasswordResetEmail } from 'firebase/auth'
 import { FormEvent, useRef, useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
-export const SignUp = () => {
-  const emailRef = useRef<HTMLInputElement>(null)
-  const passwordRef = useRef<HTMLInputElement>(null)
-  const confirmPasswordRef = useRef<HTMLInputElement>(null)
-
+export const ResetPassword = () => {
   const [loading, setLoading] = useState<boolean>(false)
-  const [errorMessage, setErrorMessage] = useState<string>('')
   const [successMessage, setSuccessMessage] = useState<string>('')
+  const [errorMessage, setErrorMessage] = useState<string>('')
 
-  const clearInputAndSetError = (errorMessage: string) => {
-    if (emailRef.current) emailRef.current.value = ''
-    if (passwordRef.current) passwordRef.current.value = ''
-    if (confirmPasswordRef.current) confirmPasswordRef.current.value = ''
-    return setErrorMessage(errorMessage)
-  }
+  const emailRef = useRef<HTMLInputElement>(null)
 
-  const handleSignUp = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleResetPassword = async (
+    e: FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault()
-    if (passwordRef.current?.value !== confirmPasswordRef.current?.value) {
-      return clearInputAndSetError('Password do not match!')
-    }
     try {
       setLoading(true)
-      await createUserWithEmailAndPassword(
-        auth,
-        emailRef.current?.value || '',
-        passwordRef.current?.value || ''
-      )
-      setSuccessMessage('Successfully created account!')
-      clearInputAndSetError('')
+      await sendPasswordResetEmail(auth, emailRef.current?.value || '')
+      setSuccessMessage('Sucessfully, your password updated!')
     } catch (error: any) {
-      switch (error.code) {
-        case ERROR_CODE.EMAIL_ALREADY_IN_USE:
-          clearInputAndSetError('Email already in use!')
-          break
-        case ERROR_CODE.WEAK_PASSWORD:
-          clearInputAndSetError('Password should be at least 6 characters!')
-          break
-        default:
-          clearInputAndSetError('Failed to create an account!')
-          break
-      }
+      if (error.code === 'auth/user-not-found')
+        return setErrorMessage('User not found!')
+      setErrorMessage('Failed to reset password!')
     } finally {
+      if (emailRef.current) emailRef.current.value = ''
       setLoading(false)
     }
   }
@@ -80,7 +56,7 @@ export const SignUp = () => {
       <VStack as="header" spacing="6" mt="8">
         <Braveware size="64" />
         <Heading as="h1" fontWeight="300" fontSize="24px">
-          Sign up to Brainwave
+          Reset your password
         </Heading>
         {successMessage && (
           <Alert status="success" color="brand.dark">
@@ -102,23 +78,15 @@ export const SignUp = () => {
         borderColor="brand.border"
         w="308px">
         <CardBody>
-          <form onSubmit={handleSignUp}>
-            <Stack spacing={4}>
+          <form onSubmit={handleResetPassword}>
+            <Stack spacing="4">
               <FormControl as="fieldset">
                 <FormLabel fontSize="sm">Email address</FormLabel>
                 <CustomInput type="email" ref={emailRef} />
               </FormControl>
-              <FormControl as="fieldset">
-                <FormLabel fontSize="sm">Password</FormLabel>
-                <CustomInput type="password" ref={passwordRef} />
-              </FormControl>
-              <FormControl as="fieldset">
-                <FormLabel fontSize="sm">Confirm Password</FormLabel>
-                <CustomInput type="password" ref={confirmPasswordRef} />
-              </FormControl>
               <Button
-                colorScheme="green"
                 type="submit"
+                colorScheme="green"
                 fontWeight="300"
                 size="sm">
                 {loading ? (
@@ -130,7 +98,7 @@ export const SignUp = () => {
                     size="sm"
                   />
                 ) : (
-                  'Sign up'
+                  'Reset password'
                 )}
               </Button>
             </Stack>
@@ -146,9 +114,16 @@ export const SignUp = () => {
         <CardBody>
           <Center>
             <HStack fontSize="sm" spacing="1">
-              <Text>Already have an account?</Text>
-              <Link as={RouterLink} to="/signin" color="brand.blue">
-                Sign In
+              <Link
+                as={RouterLink}
+                fontSize="md"
+                to="/signin"
+                _hover={{
+                  color: 'green.400',
+                  textDecor: 'underline',
+                }}
+                _focus={{ color: 'green.400' }}>
+                Back to sign in
               </Link>
             </HStack>
           </Center>

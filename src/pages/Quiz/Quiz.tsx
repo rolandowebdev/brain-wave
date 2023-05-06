@@ -12,8 +12,10 @@ import {
 import { CloseIcon } from '@chakra-ui/icons'
 import {
   Button,
+  Center,
   Heading,
   IconButton,
+  Spinner,
   Stack,
   Text,
   VStack,
@@ -21,7 +23,7 @@ import {
 import { signOut } from 'firebase/auth'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { MouseEventHandler, useEffect, useState } from 'react'
-import { useAxios } from '@/hooks'
+import { useAxios, useCustomToast } from '@/hooks'
 import { generateRandom } from '@/libs/generateRandom'
 import { decode } from 'html-entities'
 
@@ -30,7 +32,9 @@ const TIMER_COUNT = 30
 export const Quiz = () => {
   const navigate = useNavigate()
   const { quizName } = useParams()
+
   const illustration = getIllustration(quizName, 'static', 'small')
+  const showToast = useCustomToast()
 
   const {
     setCorrectAnswer,
@@ -57,8 +61,6 @@ export const Quiz = () => {
 
   const newGameTimer = notAnswerd * TIMER_COUNT
   const continueGameTimer = (notAnswerd - questionIndex) * TIMER_COUNT
-
-  console.log(quizName)
 
   const animalQuizData = {
     questionIndex: questionIndex,
@@ -135,8 +137,21 @@ export const Quiz = () => {
   if (hasNavigatedResult)
     return <Navigate to={`${resultQuizUrl}`} replace={true} />
 
-  if (loading) return <Text>Loading...</Text>
-  if (error) return <Text>Error</Text>
+  if (loading) {
+    return (
+      <Center h="100vh">
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="green.400"
+          size="xl"
+        />
+      </Center>
+    )
+  }
+
+  if (error) return showToast('API connection failed.', 'error')
 
   return (
     <>
