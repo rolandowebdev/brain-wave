@@ -158,9 +158,10 @@ export const Quiz = () => {
       <Stack
         as="main"
         alignItems="flex-end"
-        direction={['column', 'row']}
-        gap={8}>
-        <VStack flex={1} spacing={8} textAlign="center" fontSize="xl">
+        direction={['column', 'row', 'row', 'row']}
+        gap={8}
+        pb="44px">
+        <VStack w="full" flex={1} spacing={8} textAlign="center" fontSize="xl">
           {illustration}
           <VStack spacing={4} w="full">
             <Text
@@ -194,7 +195,7 @@ export const Quiz = () => {
             <Timer time={keyExists ? continueGameTimer : newGameTimer} />
           </VStack>
         </VStack>
-        <VStack flex={1} alignItems="flex-start" gap={4}>
+        <VStack flex={1} alignItems="flex-start" w="full" gap={4}>
           <VStack alignItems="flex-start">
             <Text as="span">
               question {questionIndex + 1} of {results?.length}

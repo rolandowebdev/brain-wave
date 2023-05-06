@@ -10,6 +10,7 @@ import {
   Stack,
   Text,
   VStack,
+  Wrap,
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 
@@ -38,7 +39,9 @@ export const MenuCard = ({ category, title, difficulty }: QuizProps) => {
             icon={<StarIcon />}
             _hover={{ bgColor: 'transparent' }}
           />
-          {illustration}
+          <Wrap display={['none', 'block', 'block', 'block']}>
+            {illustration}
+          </Wrap>
         </CardBody>
         <CardFooter>
           <VStack alignItems="flex-start">

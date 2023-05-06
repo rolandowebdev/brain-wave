@@ -20,14 +20,21 @@ export const Dashboard = () => {
   return (
     <>
       <Navbar logout={handleLogout} />
-      <Box as="main" mt="44px">
+      <Box as="main" py="44px">
         <VStack spacing={1} alignItems="flex-start" mb="40px">
           <Heading as="h1" letterSpacing="wide">
             Let's Play
           </Heading>
           <Text as="p">Be the first!</Text>
         </VStack>
-        <Grid templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)']} gap={12}>
+        <Grid
+          templateColumns={[
+            'repeat(1, 1fr)',
+            'repeat(1, 1fr)',
+            'repeat(1, 1fr)',
+            'repeat(2, 1fr)',
+          ]}
+          gap={[6, 10, 10, 12]}>
           {menus.map((menu) => (
             <MenuCard
               key={menu.id}

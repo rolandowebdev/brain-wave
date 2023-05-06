@@ -40,7 +40,6 @@ export const Description = () => {
   return (
     <>
       <Navbar logout={handleLogout} />
-
       <HStack
         as="main"
         mt="44px"
@@ -60,7 +59,7 @@ export const Description = () => {
           icon={<ChevronLeftIcon fontSize="3xl" />}
         />
       </HStack>
-      <Box as="main">
+      <Box as="main" pb="44px">
         <Center>{illustration}</Center>
         <Stack spacing={4}>
           <VStack alignItems="flex-start">
