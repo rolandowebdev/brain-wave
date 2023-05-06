@@ -52,6 +52,7 @@ export const Result = () => {
   return (
     <>
       <Container
+        as="main"
         maxW="lg"
         display="flex"
         flexDir="column"

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import {
   Dashboard,
   Description,
+  NotFound,
   Quiz,
   ResetPassword,
   Result,
@@ -17,43 +18,42 @@ const App = () => {
       <Container maxW="4xl" sx={{ minH: 'calc(100vh - 64px)' }}>
         <BrowserRouter>
           <Routes>
-            <Route path="/">
-              <Route
-                index
-                element={
-                  <PrivateRoutes>
-                    <Dashboard />
-                  </PrivateRoutes>
-                }
-              />
-              <Route path="signin" element={<SignIn />} />
-              <Route path="signup" element={<SignUp />} />
-              <Route path="resetPassword" element={<ResetPassword />} />
-              <Route path=":category">
-                <Route
-                  index
-                  element={
-                    <PrivateRoutes>
-                      <Description />
-                    </PrivateRoutes>
-                  }
-                />
-                <Route path=":quizName">
-                  <Route
-                    index
-                    element={<PrivateRoutes>{<Quiz />}</PrivateRoutes>}
-                  />
-                  <Route
-                    path=":resultQuizName"
-                    element={
-                      <PrivateRoutes>
-                        <Result />
-                      </PrivateRoutes>
-                    }
-                  />
-                </Route>
-              </Route>
-            </Route>
+            <Route
+              path="/"
+              element={
+                <PrivateRoutes>
+                  <Dashboard />
+                </PrivateRoutes>
+              }
+            />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/resetPassword" element={<ResetPassword />} />
+            <Route
+              path="/:category"
+              element={
+                <PrivateRoutes>
+                  <Description />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="/:category/:quizName"
+              element={
+                <PrivateRoutes>
+                  <Quiz />
+                </PrivateRoutes>
+              }
+            />
+            <Route
+              path="/:category/:quizName/:resultQuizName"
+              element={
+                <PrivateRoutes>
+                  <Result />
+                </PrivateRoutes>
+              }
+            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </Container>
