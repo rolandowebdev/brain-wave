@@ -7,7 +7,7 @@ import {
   getQuizUrl,
   isLocalStorageKeyExist,
   saveQuizData,
-  useQuiz,
+  getQuiz,
 } from '@/utils'
 import { CloseIcon } from '@chakra-ui/icons'
 import {
@@ -39,7 +39,7 @@ export const Quiz = () => {
     correctAnswer,
     incorrectAnswers,
     questionIndex,
-  } = useQuiz(quizName)
+  } = getQuiz(quizName)
 
   const amountOfQuestion = 10
   const [randomAnswers, setRandomAnswers] = useState<string[]>([])
@@ -172,7 +172,7 @@ export const Quiz = () => {
               backgroundColor="brand.softDark"
               borderRadius="md">
               Correct :{' '}
-              <Text as="span" color="teal">
+              <Text as="span" color="green.400">
                 {correctAnswer} / {results?.length}
               </Text>
             </Text>
@@ -186,7 +186,7 @@ export const Quiz = () => {
               backgroundColor="brand.softDark"
               borderRadius="md">
               InCorrect :{' '}
-              <Text as="span" color="red.500">
+              <Text as="span" color="red.400">
                 {incorrectAnswers} / {results?.length}
               </Text>
             </Text>

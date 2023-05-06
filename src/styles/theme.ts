@@ -12,7 +12,6 @@ const colors = {
     border: '#21262d',
     light: '#e6edf3',
     primary: '#2f81f7',
-    secondary: '#238636',
   },
 }
 

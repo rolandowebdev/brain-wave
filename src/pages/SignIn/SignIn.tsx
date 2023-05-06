@@ -122,11 +122,9 @@ export const SignIn = () => {
               </FormControl>
               <Button
                 type="submit"
-                bg="brand.secondary"
+                colorScheme="green"
                 fontWeight="300"
-                size="sm"
-                _hover={{ bg: 'brand.secondary' }}
-                _active={{ bg: 'brand.secondary' }}>
+                size="sm">
                 {loading ? 'loading...' : 'Sign in'}
               </Button>
             </Stack>

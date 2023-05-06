@@ -9,7 +9,7 @@ export const Animals = ({ position, type }: AnimalsProps) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      style={{ position: `${position}`, top: '-150%', left: '220px' }}
+      style={{ position: `${position}`, top: '-190%', left: '200px' }}
       width={logoSize}
       height={logoSize}
       xmlSpace="preserve"

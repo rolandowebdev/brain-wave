@@ -125,7 +125,7 @@ export const Result = () => {
           </GridItem>
         </Grid>
         <Button
-          bgColor="brand.secondary"
+          colorScheme="green"
           fontWeight="normal"
           w="full"
           size="lg"

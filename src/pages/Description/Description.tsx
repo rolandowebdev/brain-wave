@@ -71,7 +71,7 @@ export const Description = () => {
           <Text as="p">{categoryData.description}</Text>
           <Button
             onClick={() => navigate(`${categoryData.quizName}`)}
-            colorScheme="teal"
+            colorScheme="green"
             size="lg"
             fontWeight="normal"
             w={36}>

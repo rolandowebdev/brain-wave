@@ -1,5 +1,5 @@
 import { QuizProps } from '@/models'
-import { getIllustration } from '@/utils'
+import { getBackground, getIllustration } from '@/utils'
 import { StarIcon } from '@chakra-ui/icons'
 import {
   Card,
@@ -16,9 +16,10 @@ import { useNavigate } from 'react-router-dom'
 export const MenuCard = ({ category, title, difficulty }: QuizProps) => {
   const navigate = useNavigate()
   const illustration = getIllustration(category, 'absolute', 'large')
+  const background = getBackground(category)
   return (
     <Card
-      backgroundColor="brand.softDark"
+      bgGradient={background}
       color="brand.light"
       border="none"
       rounded="2xl"

@@ -3,7 +3,7 @@ import { useComputerQuiz } from '@/app/computerStore'
 import { useGeographyQuiz } from '@/app/geographyStore'
 import { useKnowledgeQuiz } from '@/app/knowledgeStore'
 
-export const useQuiz = (quizType: any) => {
+export const getQuiz = (quizType: any) => {
   switch (quizType) {
     case 'animalsQuiz':
       return useAnimalQuiz()

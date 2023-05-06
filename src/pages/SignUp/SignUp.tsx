@@ -116,12 +116,10 @@ export const SignUp = () => {
                 <CustomInput type="password" ref={confirmPasswordRef} />
               </FormControl>
               <Button
+                colorScheme="green"
                 type="submit"
-                bg="brand.secondary"
                 fontWeight="300"
-                size="sm"
-                _hover={{ bg: 'brand.secondary' }}
-                _active={{ bg: 'brand.secondary' }}>
+                size="sm">
                 {loading ? 'loading...' : 'Sign up'}
               </Button>
             </Stack>
