@@ -5,14 +5,25 @@ import { useNavigate } from 'react-router-dom'
 
 interface TimerProps {
   time: number
+  resultQuizUrl: string
+  categoryName: string
+  quizName: any
 }
 
-export const Timer = ({ time }: TimerProps) => {
+export const Timer = ({
+  time,
+  resultQuizUrl,
+  quizName,
+  categoryName,
+}: TimerProps) => {
   const [timer, setTimer] = useState<number>(time)
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (timer < 0) navigate('/result', { replace: true })
+    if (timer < 0)
+      navigate(`/${categoryName}/${quizName}/${resultQuizUrl}`, {
+        replace: true,
+      })
   }, [timer, navigate])
 
   useEffect(() => {

@@ -8,6 +8,7 @@ import {
   isLocalStorageKeyExist,
   saveQuizData,
   getQuiz,
+  getCategoryName,
 } from '@/utils'
 import { CloseIcon } from '@chakra-ui/icons'
 import {
@@ -50,6 +51,7 @@ export const Quiz = () => {
   const [hasNavigatedResult, setHasNavigatedResult] = useState<boolean>(false)
   const [notAnswerd, setNotAnswerd] = useState<number>(amountOfQuestion || 0)
 
+  const categoryName = getCategoryName(quizName)
   const quizUrl = getQuizUrl(quizName)
   const resultQuizUrl = getQuizResult(quizName)
 
@@ -207,7 +209,12 @@ export const Quiz = () => {
                 {incorrectAnswers} / {results?.length}
               </Text>
             </Text>
-            <Timer time={keyExists ? continueGameTimer : newGameTimer} />
+            <Timer
+              quizName={quizName}
+              categoryName={categoryName}
+              resultQuizUrl={resultQuizUrl}
+              time={keyExists ? continueGameTimer : newGameTimer}
+            />
           </VStack>
         </VStack>
         <VStack flex={1} alignItems="flex-start" w="full" gap={4}>
