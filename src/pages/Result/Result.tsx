@@ -37,11 +37,14 @@ export const Result = () => {
   const { resetQuestion, correctAnswer, incorrectAnswers } =
     useResultQuiz(resultQuizName)
 
-  const keyStorage = getKeyStorage(resultQuizName)
-
-  const question = JSON.parse(localStorage.getItem(keyStorage) || 'null')
-  const notAnswerd = question.notAnswerd
   const amountOfQuestion = 10
+  const keyStorage = getKeyStorage(resultQuizName)
+  const question = JSON.parse(localStorage.getItem(keyStorage) || 'null')
+
+  const notAnswerd =
+    question.notAnswerd == amountOfQuestion
+      ? question.notAnswerd - (correctAnswer + incorrectAnswers)
+      : question.notAnswerd
 
   const handleBackToDashboard = () => {
     resetQuestion()

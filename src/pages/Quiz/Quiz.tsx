@@ -64,7 +64,7 @@ export const Quiz = () => {
   const newGameTimer = notAnswerd * TIMER_COUNT
   const continueGameTimer = (notAnswerd - questionIndex) * TIMER_COUNT
 
-  const animalQuizData = {
+  const quizData = {
     questionIndex: questionIndex,
     questions: results,
     incorrectAnswers: incorrectAnswers,
@@ -73,7 +73,7 @@ export const Quiz = () => {
   }
 
   useEffect(() => {
-    if (results?.length) saveQuizData(quizName, animalQuizData)
+    if (results?.length) saveQuizData(quizName, quizData)
   }, [results, questionIndex, incorrectAnswers, correctAnswer, notAnswerd])
 
   const handleRandomAnswers = () => {
