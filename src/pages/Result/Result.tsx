@@ -1,8 +1,5 @@
-import { useAnimalQuiz } from '@/app/animalStore'
-import { useComputerQuiz } from '@/app/computerStore'
-import { useGeographyQuiz } from '@/app/geographyStore'
-import { useKnowledgeQuiz } from '@/app/knowledgeStore'
 import { getKeyStorage } from '@/utils'
+import { getQuizStorage } from '@/utils/getQuizStorage'
 import {
   Button,
   Card,
@@ -16,26 +13,11 @@ import {
 } from '@chakra-ui/react'
 import { useNavigate, useParams } from 'react-router-dom'
 
-const useResultQuiz = (quizType: any) => {
-  switch (quizType) {
-    case 'resultAnimalsQuiz':
-      return useAnimalQuiz()
-    case 'resultKnowledgeQuiz':
-      return useKnowledgeQuiz()
-    case 'resultComputerQuiz':
-      return useComputerQuiz()
-    case 'resultGeographyQuiz':
-      return useGeographyQuiz()
-    default:
-      throw new Error('Invalid quiz type')
-  }
-}
-
 export const Result = () => {
   const navigate = useNavigate()
   const { resultQuizName } = useParams()
   const { resetQuestion, correctAnswer, incorrectAnswers } =
-    useResultQuiz(resultQuizName)
+    getQuizStorage(resultQuizName)
 
   const amountOfQuestion = 10
   const keyStorage = getKeyStorage(resultQuizName)
