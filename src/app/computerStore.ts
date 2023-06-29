@@ -25,10 +25,8 @@ export const useComputerQuiz = create<ComputerState & ComputerActions>()(
     resetQuestion: () =>
       set((state) => ({
         ...state,
-        amountOfQuestion: 0,
         correctAnswer: 0,
         incorrectAnswers: 0,
-        notAnswerd: 0,
         questionIndex: 0,
       })),
     setCorrectAnswer: (answer: number) => set({ correctAnswer: answer }),
