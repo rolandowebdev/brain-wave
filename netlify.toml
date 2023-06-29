@@ -1,4 +1,16 @@
+[build]
+  command = "yarn build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[build.headers]
+  "/*" = [
+    "Cache-Control: public, max-age=0, must-revalidate",
+  ]
+
 [[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
+  from = "/*"
+  to = "/index.html"
+  status = 200
