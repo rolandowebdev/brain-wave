@@ -1,6 +1,6 @@
 export * from './Animals/Animals'
 export * from './Brainwave/Brainwave'
 export * from './Knowledge/Knowledge'
-export * from './Logout/Logout'
+export * from './SignOut/SignOut'
 export * from './Computer/Computer'
 export * from './Geography/Geography'

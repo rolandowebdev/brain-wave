@@ -1,9 +1,9 @@
-interface LogoutProps {
+interface SignOutProps {
   size: string
   color: string
 }
 
-export const Logout = ({ size, color }: LogoutProps) => {
+export const SignOut = ({ size, color }: SignOutProps) => {
   return (
     <svg
       version="1.0"

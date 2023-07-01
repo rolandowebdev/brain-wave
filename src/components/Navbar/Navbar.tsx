@@ -14,13 +14,13 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
-import { Brainwave, Logout } from '../Logo'
+import { Brainwave, SignOut } from '../Logo'
 
 interface NavbarProps {
-  logout: () => Promise<void>
+  signout: () => Promise<void>
 }
 
-export const Navbar = ({ logout }: NavbarProps) => {
+export const Navbar = ({ signout }: NavbarProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <HStack h="64px" justifyContent="space-between" alignItems="center">
@@ -50,7 +50,7 @@ export const Navbar = ({ logout }: NavbarProps) => {
           borderColor: 'green.400',
         }}
         _focus={{ bgColor: 'green.400', borderColor: 'green.400' }}
-        icon={<Logout size="19" color="#e6edf3" />}
+        icon={<SignOut size="19" color="#e6edf3" />}
       />
       <Modal
         motionPreset="slideInBottom"
@@ -59,14 +59,14 @@ export const Navbar = ({ logout }: NavbarProps) => {
         isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Logout</ModalHeader>
+          <ModalHeader>Sign out</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text as="p">Do you really wish to leave and log out?</Text>
+            <Text as="p">Do you really wish to leave and sign out?</Text>
           </ModalBody>
           <ModalFooter>
-            <Button variant="solid" onClick={logout}>
-              Logout
+            <Button variant="solid" onClick={signout}>
+              Sign out
             </Button>
           </ModalFooter>
         </ModalContent>

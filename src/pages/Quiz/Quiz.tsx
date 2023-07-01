@@ -1,15 +1,17 @@
 import { Navbar, Timer } from '@/components'
-import { auth } from '@/libs'
+import { useAxios, useCustomToast } from '@/hooks'
+import { generateRandom } from '@/libs/generateRandom'
 import {
+  getCategoryName,
   getIllustration,
   getKeyStorage,
+  getQuiz,
   getQuizResult,
   getQuizUrl,
   isLocalStorageKeyExist,
   saveQuizData,
-  getQuiz,
-  getCategoryName,
 } from '@/utils'
+import { handleSignOut } from '@/utils/handleSignOut'
 import { CloseIcon } from '@chakra-ui/icons'
 import {
   Button,
@@ -21,12 +23,9 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { signOut } from 'firebase/auth'
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
-import { MouseEventHandler, useEffect, useState } from 'react'
-import { useAxios, useCustomToast } from '@/hooks'
-import { generateRandom } from '@/libs/generateRandom'
 import { decode } from 'html-entities'
+import { MouseEventHandler, useEffect, useState } from 'react'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 
 const TIMER_COUNT = 30
 
@@ -130,16 +129,6 @@ export const Quiz = () => {
     moveNextQuestion()
   }
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth)
-      localStorage.clear()
-      navigate('/signin')
-    } catch {
-      console.log('Failed to sign out!')
-    }
-  }
-
   if (hasNavigatedResult) {
     return <Navigate to={`${resultQuizUrl}`} replace={true} />
   }
@@ -160,7 +149,7 @@ export const Quiz = () => {
 
   return (
     <>
-      <Navbar logout={handleLogout} />
+      <Navbar signout={() => handleSignOut(navigate)} />
       <IconButton
         onClick={() => navigate(-1)}
         mt="44px"

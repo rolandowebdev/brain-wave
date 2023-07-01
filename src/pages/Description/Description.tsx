@@ -1,7 +1,7 @@
 import { Navbar } from '@/components'
-import { auth } from '@/libs'
 import { getDescription, getKeyStorage, isLocalStorageKeyExist } from '@/utils'
 import { getIllustration } from '@/utils'
+import { handleSignOut } from '@/utils/handleSignOut'
 import { ChevronLeftIcon } from '@chakra-ui/icons'
 import {
   Box,
@@ -14,7 +14,6 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { signOut } from 'firebase/auth'
 import { useNavigate, useParams } from 'react-router-dom'
 
 export const Description = () => {
@@ -27,19 +26,9 @@ export const Description = () => {
   const quizKey = getKeyStorage(category)
   const keyExists = isLocalStorageKeyExist(quizKey)
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth)
-      localStorage.clear()
-      navigate('/signin')
-    } catch {
-      console.log('Failed to sign out!')
-    }
-  }
-
   return (
     <>
-      <Navbar logout={handleLogout} />
+      <Navbar signout={() => handleSignOut(navigate)} />
       <HStack mt="44px" justifyContent="space-between" alignItems="center">
         <IconButton
           borderColor="brand.light"
