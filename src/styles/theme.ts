@@ -12,6 +12,7 @@ const colors = {
     border: '#21262d',
     light: '#e6edf3',
     blue: '#2f81f7',
+    red: '#e53e3e',
   },
 }
 

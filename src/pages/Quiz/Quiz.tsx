@@ -34,8 +34,9 @@ export const Quiz = () => {
   const navigate = useNavigate()
   const { quizName } = useParams()
 
-  const illustration = getIllustration(quizName, 'static', 'small')
+  const amountOfQuestion = 10
   const showToast = useCustomToast()
+  const illustration = getIllustration(quizName, 'static', 'small')
 
   const {
     setCorrectAnswer,
@@ -46,14 +47,13 @@ export const Quiz = () => {
     questionIndex,
   } = getQuiz(quizName)
 
-  const amountOfQuestion = 10
   const [randomAnswers, setRandomAnswers] = useState<string[]>([])
+  const [notAnswerd, setNotAnswerd] = useState<number>(amountOfQuestion)
   const [hasNavigatedResult, setHasNavigatedResult] = useState<boolean>(false)
-  const [notAnswerd, setNotAnswerd] = useState<number>(amountOfQuestion || 0)
 
-  const categoryName = getCategoryName(quizName)
   const quizUrl = getQuizUrl(quizName)
   const resultQuizUrl = getQuizResult(quizName)
+  const categoryName = getCategoryName(quizName)
 
   const quizKey = getKeyStorage(quizName)
   const keyExists = isLocalStorageKeyExist(quizKey)
@@ -73,7 +73,7 @@ export const Quiz = () => {
   }
 
   useEffect(() => {
-    if (results?.length) saveQuizData(quizName, quizData)
+    if (!loading && results) saveQuizData(quizName, quizData)
   }, [results, questionIndex, incorrectAnswers, correctAnswer, notAnswerd])
 
   const handleRandomAnswers = () => {
@@ -88,7 +88,7 @@ export const Quiz = () => {
   }
 
   useEffect(() => {
-    if (!loading && results?.length) handleRandomAnswers()
+    if (!loading && results) handleRandomAnswers()
   }, [loading, results, questionIndex])
 
   const decodeAnswers = () => {
@@ -111,13 +111,17 @@ export const Quiz = () => {
     const { isCorrect, isIncorrect } = checkAnswer(answer)
     if (isCorrect) setCorrectAnswer(correctAnswer + 1)
     if (isIncorrect) setIncorrectAnswers(incorrectAnswers + 1)
-    if (!isCorrect || !isIncorrect)
+    if (!isCorrect || !isIncorrect) {
       setNotAnswerd(results?.length - (incorrectAnswers + correctAnswer) - 1)
+    }
   }
 
   const moveNextQuestion = () => {
-    if (questionIndex + 1 >= results?.length) setHasNavigatedResult(true)
-    else setQuestionIndex(questionIndex + 1)
+    if (questionIndex + 1 >= results?.length) {
+      setHasNavigatedResult(true)
+    } else {
+      setQuestionIndex(questionIndex + 1)
+    }
   }
 
   const handleAnswers: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -136,8 +140,9 @@ export const Quiz = () => {
     }
   }
 
-  if (hasNavigatedResult)
+  if (hasNavigatedResult) {
     return <Navigate to={`${resultQuizUrl}`} replace={true} />
+  }
 
   if (loading) {
     return (
@@ -152,8 +157,6 @@ export const Quiz = () => {
       </Center>
     )
   }
-
-  if (error) return showToast('API connection failed.', 'error')
 
   return (
     <>
@@ -172,79 +175,105 @@ export const Quiz = () => {
         _focus={{ bgColor: 'green.400', borderColor: 'green.400' }}
         icon={<CloseIcon fontSize="sm" />}
       />
-      <Stack
-        as="main"
-        alignItems="flex-end"
-        direction={['column', 'row', 'row', 'row']}
-        gap={8}
-        pb="44px">
-        <VStack w="full" flex={1} spacing={8} textAlign="center" fontSize="xl">
-          {illustration}
-          <VStack spacing={4} w="full">
-            <Text
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              w="full"
-              px={3}
-              py={2}
-              backgroundColor="brand.softDark"
-              borderRadius="md">
-              Correct :{' '}
-              <Text as="span" color="green.400">
-                {correctAnswer} / {results?.length}
-              </Text>
-            </Text>
-            <Text
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              w="full"
-              px={3}
-              py={2}
-              backgroundColor="brand.softDark"
-              borderRadius="md">
-              InCorrect :{' '}
-              <Text as="span" color="red.400">
-                {incorrectAnswers} / {results?.length}
-              </Text>
-            </Text>
-            <Timer
-              quizName={quizName}
-              categoryName={categoryName}
-              resultQuizUrl={resultQuizUrl}
-              time={keyExists ? continueGameTimer : newGameTimer}
-            />
-          </VStack>
-        </VStack>
-        <VStack flex={1} alignItems="flex-start" w="full" gap={4}>
-          <VStack alignItems="flex-start">
-            <Text as="span">
-              question {questionIndex + 1} of {results?.length}
-            </Text>
-            <Heading as="h1" fontSize="xl">
-              {decode(results[questionIndex]?.question)}
-            </Heading>
-          </VStack>
-          <VStack gap={2} w="full">
-            {randomAnswers.map((randomAnswer) => (
-              <Button
-                onClick={handleAnswers}
-                key={randomAnswer}
-                value={decode(randomAnswer)}
-                backgroundColor="brand.softDark"
-                size="lg"
+      {!error ? (
+        <Stack
+          as="main"
+          alignItems="flex-end"
+          direction={['column', 'row', 'row', 'row']}
+          gap={8}
+          pb="44px">
+          <VStack
+            w="full"
+            flex={1}
+            spacing={8}
+            textAlign="center"
+            fontSize="xl">
+            {illustration}
+            <VStack spacing={4} w="full">
+              <Text
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
                 w="full"
-                _hover={{
-                  backgroundColor: 'brand.light',
-                  color: 'brand.softDark',
-                }}>
-                {decode(randomAnswer)}
-              </Button>
-            ))}
+                px={3}
+                py={2}
+                backgroundColor="brand.softDark"
+                borderRadius="md">
+                Correct :{' '}
+                <Text as="span" color="green.400">
+                  {correctAnswer} / {results?.length}
+                </Text>
+              </Text>
+              <Text
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                w="full"
+                px={3}
+                py={2}
+                backgroundColor="brand.softDark"
+                borderRadius="md">
+                InCorrect :{' '}
+                <Text as="span" color="red.400">
+                  {incorrectAnswers} / {results?.length}
+                </Text>
+              </Text>
+              <Timer
+                quizName={quizName}
+                categoryName={categoryName}
+                resultQuizUrl={resultQuizUrl}
+                time={keyExists ? continueGameTimer : newGameTimer}
+              />
+            </VStack>
           </VStack>
-        </VStack>
-      </Stack>
+          <VStack flex={1} alignItems="flex-start" w="full" gap={4}>
+            <VStack alignItems="flex-start">
+              <Text as="span">
+                question {questionIndex + 1} of {results?.length}
+              </Text>
+              <Heading as="h1" fontSize="xl">
+                {decode(results[questionIndex]?.question)}
+              </Heading>
+            </VStack>
+            <VStack gap={2} w="full">
+              {randomAnswers.map((randomAnswer) => (
+                <Button
+                  onClick={handleAnswers}
+                  key={randomAnswer}
+                  value={decode(randomAnswer)}
+                  backgroundColor="brand.softDark"
+                  size="lg"
+                  w="full"
+                  _hover={{
+                    backgroundColor: 'brand.light',
+                    color: 'brand.softDark',
+                  }}>
+                  {decode(randomAnswer)}
+                </Button>
+              ))}
+            </VStack>
+          </VStack>
+        </Stack>
+      ) : (
+        <>
+          {showToast('API connection failed.', 'error')}
+          <Center
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            sx={{ height: 'calc(100vh - 148px)' }}>
+            <Text
+              as="h1"
+              fontSize="1.1rem"
+              paddingInline="8px"
+              paddingBlock="4px"
+              borderRadius="4px"
+              backgroundColor="brand.red">
+              Connection interrupted, please check your connection.
+            </Text>
+          </Center>
+        </>
+      )}
     </>
   )
 }
