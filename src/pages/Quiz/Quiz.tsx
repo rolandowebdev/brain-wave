@@ -34,10 +34,7 @@ export const Quiz = () => {
   const { quizName } = useParams()
 
   const illustration = getIllustration(quizName, 'static', 'small')
-  const question = JSON.parse(
-    localStorage.getItem(quizName as string) || 'null'
-  )
-  const amountOfQuestion = question?.questions.length
+  const amountOfQuestion = 10
 
   const quizUrl = getQuizUrl(quizName)
   const resultQuizUrl = getQuizResult(quizName)
