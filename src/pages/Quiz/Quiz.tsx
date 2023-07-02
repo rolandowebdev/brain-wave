@@ -167,7 +167,7 @@ export const Quiz = () => {
         <Stack
           as="main"
           alignItems="flex-end"
-          direction={['column', 'row', 'row', 'row']}
+          direction={{ base: 'column', md: 'column', lg: 'row' }}
           gap={8}
           pb="44px">
           <VStack

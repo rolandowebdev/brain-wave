@@ -10,6 +10,11 @@ export const AuthReducer = (
         currentUser: action.payload,
       }
     }
+    case 'SIGNUP': {
+      return {
+        currentUser: action.payload,
+      }
+    }
     case 'LOGOUT': {
       return {
         currentUser: null,

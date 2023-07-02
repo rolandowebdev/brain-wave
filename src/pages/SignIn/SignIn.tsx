@@ -80,9 +80,10 @@ export const SignIn = () => {
       flexDir="column"
       gap={4}
       justifyContent="center"
-      alignItems="center">
-      <VStack as="header" spacing="6" mt="8">
-        <Brainwave size="64" />
+      alignItems="center"
+      paddingBottom="32px">
+      <VStack as="header" spacing="4" mt="6">
+        <Brainwave size="48" />
         <Heading as="h1" fontWeight="300" fontSize="24px">
           Sign in to Brainwave
         </Heading>

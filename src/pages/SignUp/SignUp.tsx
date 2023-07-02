@@ -1,5 +1,6 @@
 import { Brainwave, CustomInput } from '@/components'
 import { ERROR_CODE } from '@/constants'
+import { useAuth } from '@/context'
 import { auth } from '@/libs'
 import {
   Alert,
@@ -18,11 +19,14 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { FormEvent, useRef, useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
 export const SignUp = () => {
+  const { dispatch } = useAuth()
+
+  const fullNameRef = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
   const confirmPasswordRef = useRef<HTMLInputElement>(null)
@@ -32,6 +36,7 @@ export const SignUp = () => {
   const [successMessage, setSuccessMessage] = useState<string>('')
 
   const clearInputAndSetError = (errorMessage: string) => {
+    if (fullNameRef.current) fullNameRef.current.value = ''
     if (emailRef.current) emailRef.current.value = ''
     if (passwordRef.current) passwordRef.current.value = ''
     if (confirmPasswordRef.current) confirmPasswordRef.current.value = ''
@@ -45,11 +50,15 @@ export const SignUp = () => {
     }
     try {
       setLoading(true)
-      await createUserWithEmailAndPassword(
+      const res = await createUserWithEmailAndPassword(
         auth,
         emailRef.current?.value || '',
         passwordRef.current?.value || ''
       )
+      const user = await updateProfile(res.user, {
+        displayName: fullNameRef.current?.value,
+      })
+      dispatch({ type: 'SIGNUP', payload: user })
       setSuccessMessage('Successfully created account!')
       clearInputAndSetError('')
     } catch (error: any) {
@@ -76,9 +85,10 @@ export const SignUp = () => {
       flexDir="column"
       gap={4}
       justifyContent="center"
-      alignItems="center">
-      <VStack as="header" spacing="6" mt="8">
-        <Brainwave size="64" />
+      alignItems="center"
+      paddingBottom="32px">
+      <VStack as="header" spacing="4" mt="6">
+        <Brainwave size="48" />
         <Heading as="h1" fontWeight="300" fontSize="24px">
           Sign up to Brainwave
         </Heading>
@@ -105,7 +115,11 @@ export const SignUp = () => {
           <form onSubmit={handleSignUp}>
             <Stack spacing={4}>
               <FormControl as="fieldset">
-                <FormLabel fontSize="sm">Email address</FormLabel>
+                <FormLabel fontSize="sm">Full Name</FormLabel>
+                <CustomInput type="text" ref={fullNameRef} />
+              </FormControl>
+              <FormControl as="fieldset">
+                <FormLabel fontSize="sm">Email Address</FormLabel>
                 <CustomInput type="email" ref={emailRef} />
               </FormControl>
               <FormControl as="fieldset">
