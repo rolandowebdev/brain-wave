@@ -16,4 +16,12 @@ const colors = {
   },
 }
 
-export const theme = extendTheme({ fonts, colors })
+const breakpoints = {
+  sm: '500px',
+  md: '550px',
+  lg: '960px',
+  xl: '1000px',
+  '2xl': '1236px',
+}
+
+export const theme = extendTheme({ fonts, colors, breakpoints })
