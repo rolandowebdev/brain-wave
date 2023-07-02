@@ -64,7 +64,6 @@ export const Quiz = () => {
 
   const quizData = {
     questionIndex: questionIndex,
-    questions: results,
     incorrectAnswers: incorrectAnswers,
     correctAnswer: correctAnswer,
     notAnswerd: notAnswerd,
