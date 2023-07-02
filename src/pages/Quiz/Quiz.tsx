@@ -1,5 +1,5 @@
 import { Navbar, Timer } from '@/components'
-import { useAxios, useCustomToast } from '@/hooks'
+import { useAxios } from '@/hooks'
 import { generateRandom } from '@/libs/generateRandom'
 import {
   getCategoryName,
@@ -33,9 +33,18 @@ export const Quiz = () => {
   const navigate = useNavigate()
   const { quizName } = useParams()
 
-  const amountOfQuestion = 10
-  const showToast = useCustomToast()
   const illustration = getIllustration(quizName, 'static', 'small')
+  const question = JSON.parse(
+    localStorage.getItem(quizName as string) || 'null'
+  )
+  const amountOfQuestion = question?.questions.length
+
+  const quizUrl = getQuizUrl(quizName)
+  const resultQuizUrl = getQuizResult(quizName)
+  const categoryName = getCategoryName(quizName)
+
+  const quizKey = getKeyStorage(quizName)
+  const keyExists = isLocalStorageKeyExist(quizKey)
 
   const {
     setCorrectAnswer,
@@ -46,19 +55,12 @@ export const Quiz = () => {
     questionIndex,
   } = getQuiz(quizName)
 
+  const { response, loading, error } = useAxios({ url: quizUrl })
+  const results = response ? response?.results : []
+
   const [randomAnswers, setRandomAnswers] = useState<string[]>([])
   const [notAnswerd, setNotAnswerd] = useState<number>(amountOfQuestion)
   const [hasNavigatedResult, setHasNavigatedResult] = useState<boolean>(false)
-
-  const quizUrl = getQuizUrl(quizName)
-  const resultQuizUrl = getQuizResult(quizName)
-  const categoryName = getCategoryName(quizName)
-
-  const quizKey = getKeyStorage(quizName)
-  const keyExists = isLocalStorageKeyExist(quizKey)
-
-  const { response, loading, error } = useAxios({ url: quizUrl })
-  const results = response ? response?.results : []
 
   const newGameTimer = notAnswerd * TIMER_COUNT
   const continueGameTimer = (notAnswerd - questionIndex) * TIMER_COUNT
@@ -73,36 +75,36 @@ export const Quiz = () => {
 
   useEffect(() => {
     if (!loading && results) saveQuizData(quizName, quizData)
-  }, [results, questionIndex, incorrectAnswers, correctAnswer, notAnswerd])
+  }, [questionIndex, correctAnswer, incorrectAnswers, notAnswerd])
 
   const handleRandomAnswers = () => {
     const question = results[questionIndex]
-    const answers = [...question.incorrect_answers]
+    const answers = [...(question?.incorrect_answers || [])]
     answers.splice(
-      generateRandom(question.incorrect_answers.length),
+      generateRandom(question?.incorrect_answers.length),
       0,
-      question.correct_answer
+      question?.correct_answer
     )
     setRandomAnswers(answers)
   }
 
   useEffect(() => {
     if (!loading && results) handleRandomAnswers()
-  }, [loading, results, questionIndex])
+  }, [results, questionIndex])
 
   const decodeAnswers = () => {
     const question = results[questionIndex]
-    const decodeCorrectAnswer = decode(question.correct_answer)
-    const decodeIncorrectAnswer = question.incorrect_answers.map(
+    const decodeCorrectAnswer = decode(question?.correct_answer)
+    const decodeIncorrectAnswers = question?.incorrect_answers.map(
       (incorrectAnswer: string) => decode(incorrectAnswer)
     )
-    return { decodeCorrectAnswer, decodeIncorrectAnswer }
+    return { decodeCorrectAnswer, decodeIncorrectAnswers }
   }
 
   const checkAnswer = (answer: any) => {
-    const { decodeCorrectAnswer, decodeIncorrectAnswer } = decodeAnswers()
+    const { decodeCorrectAnswer, decodeIncorrectAnswers } = decodeAnswers()
     const isCorrect = decodeCorrectAnswer.includes(answer)
-    const isIncorrect = decodeIncorrectAnswer.includes(answer)
+    const isIncorrect = decodeIncorrectAnswers.includes(answer)
     return { isCorrect, isIncorrect }
   }
 
@@ -244,24 +246,21 @@ export const Quiz = () => {
           </VStack>
         </Stack>
       ) : (
-        <>
-          {showToast('API connection failed.', 'error')}
-          <Center
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            sx={{ height: 'calc(100vh - 148px)' }}>
-            <Text
-              as="h1"
-              fontSize="1.1rem"
-              paddingInline="8px"
-              paddingBlock="4px"
-              borderRadius="4px"
-              backgroundColor="brand.red">
-              Connection interrupted, please check your connection.
-            </Text>
-          </Center>
-        </>
+        <Center
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          sx={{ height: 'calc(100vh - 148px)' }}>
+          <Text
+            as="h1"
+            fontSize="1.1rem"
+            paddingInline="8px"
+            paddingBlock="4px"
+            borderRadius="4px"
+            backgroundColor="brand.red">
+            Connection interrupted, please check your connection.
+          </Text>
+        </Center>
       )}
     </>
   )
