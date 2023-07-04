@@ -11,7 +11,7 @@ import {
   isLocalStorageKeyExist,
   saveQuizData,
 } from '@/utils'
-import { handleSignOut } from '@/utils/handleSignOut'
+import { handleSignOut } from '@/utils'
 import { CloseIcon } from '@chakra-ui/icons'
 import {
   Button,

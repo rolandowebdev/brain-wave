@@ -1,7 +1,7 @@
 import { MenuCard, Navbar } from '@/components'
 import { useAuth } from '@/context'
 import { menus } from '@/data'
-import { handleSignOut } from '@/utils/handleSignOut'
+import { handleSignOut } from '@/utils'
 import { Box, Grid, Heading, Text, VStack } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 

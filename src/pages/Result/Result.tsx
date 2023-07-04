@@ -1,5 +1,4 @@
-import { getKeyStorage } from '@/utils'
-import { getQuizStorage } from '@/utils/getQuizStorage'
+import { getKeyStorage, getQuizStorage } from '@/utils'
 import {
   Button,
   Card,

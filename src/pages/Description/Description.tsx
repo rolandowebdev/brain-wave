@@ -1,7 +1,6 @@
 import { Navbar } from '@/components'
 import { getDescription, getKeyStorage, isLocalStorageKeyExist } from '@/utils'
-import { getIllustration } from '@/utils'
-import { handleSignOut } from '@/utils/handleSignOut'
+import { getIllustration, handleSignOut } from '@/utils'
 import { ChevronLeftIcon } from '@chakra-ui/icons'
 import {
   Box,
