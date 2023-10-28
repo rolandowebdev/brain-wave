@@ -1,10 +1,9 @@
 import { Brainwave, CustomInput } from '@/components'
 import { ERROR_CODE } from '@/constants'
 import { useAuth } from '@/context'
+import { useMessage } from '@/hooks'
 import { auth } from '@/libs'
 import {
-  Alert,
-  AlertIcon,
   Button,
   Card,
   CardBody,
@@ -24,20 +23,13 @@ import { FormEvent, useRef, useState } from 'react'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 
 export const SignIn = () => {
-  const emailRef = useRef<HTMLInputElement>(null)
-  const passwordRef = useRef<HTMLInputElement>(null)
-
-  const [loading, setLoading] = useState<boolean>(false)
-  const [errorMessage, setErrorMessage] = useState<string>('')
-
+  const showMessage = useMessage()
   const navigate = useNavigate()
   const { dispatch } = useAuth()
 
-  const clearInputAndSetError = (errorMessage: string) => {
-    if (emailRef.current) emailRef.current.value = ''
-    if (passwordRef.current) passwordRef.current.value = ''
-    return setErrorMessage(errorMessage)
-  }
+  const emailRef = useRef<HTMLInputElement>(null)
+  const passwordRef = useRef<HTMLInputElement>(null)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const handleSignIn = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
@@ -54,18 +46,19 @@ export const SignIn = () => {
     } catch (error: any) {
       switch (error.code) {
         case ERROR_CODE.WRONG_PASSWORD:
-          clearInputAndSetError('Wrong password!')
+          showMessage('Wrong password', 'error')
           break
         case ERROR_CODE.USER_NOT_FOUND:
-          clearInputAndSetError('User not found!')
+          showMessage('User not found', 'error')
           break
         case ERROR_CODE.TOO_MANY_REQUEST:
-          clearInputAndSetError(
-            'Too many login attempts. click on "Forgot Password" to reset your password.'
+          showMessage(
+            'Too many login attempts. Click on "Forgot Password" to reset your password.',
+            'error'
           )
           break
         default:
-          clearInputAndSetError('Failed to sign in!')
+          showMessage('Failed to sign in', 'error')
           break
       }
     } finally {
@@ -87,12 +80,6 @@ export const SignIn = () => {
         <Heading as="h1" fontWeight="300" fontSize="24px">
           Sign in to Brainwave
         </Heading>
-        {errorMessage && (
-          <Alert status="error" color="brand.dark">
-            <AlertIcon />
-            {errorMessage}
-          </Alert>
-        )}
       </VStack>
       <Card
         bg="brand.softDark"

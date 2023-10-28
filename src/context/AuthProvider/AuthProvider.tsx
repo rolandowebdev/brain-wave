@@ -6,7 +6,7 @@ import {
   useContext,
 } from 'react'
 import { AuthReducer } from './AuthReducer'
-import { AuthContextProps, AuthState } from '@/models'
+import { AuthContextProps, AuthState } from '@/types'
 
 interface AuthProviderProps {
   children: ReactNode

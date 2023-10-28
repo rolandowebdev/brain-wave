@@ -1,4 +1,4 @@
-import { QuizProps } from '@/models'
+import { QuizProps } from '@/types'
 import { getBackground, getIllustration } from '@/utils'
 import { StarIcon } from '@chakra-ui/icons'
 import {

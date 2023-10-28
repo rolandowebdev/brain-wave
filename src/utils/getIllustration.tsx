@@ -1,5 +1,5 @@
 import { Animals, Computer, Geography, Knowledge } from '@/components'
-import { Category, QuizName } from '@/models'
+import { Category, QuizName } from '@/types'
 
 export const getIllustration = (
   name: QuizName | Category,

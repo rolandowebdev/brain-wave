@@ -1,10 +1,6 @@
-import { Brainwave, CustomInput } from '@/components'
-import { ERROR_CODE } from '@/constants'
-import { useAuth } from '@/context'
-import { auth } from '@/libs'
+import { useState, useRef, FormEvent } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import {
-  Alert,
-  AlertIcon,
   Button,
   Card,
   CardBody,
@@ -20,10 +16,15 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { FormEvent, useRef, useState } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+
+import { Brainwave, CustomInput } from '@/components'
+import { ERROR_CODE } from '@/constants'
+import { useAuth } from '@/context'
+import { auth } from '@/libs'
+import { useMessage } from '@/hooks'
 
 export const SignUp = () => {
+  const showMessage = useMessage()
   const { dispatch } = useAuth()
 
   const fullNameRef = useRef<HTMLInputElement>(null)
@@ -32,23 +33,23 @@ export const SignUp = () => {
   const confirmPasswordRef = useRef<HTMLInputElement>(null)
 
   const [loading, setLoading] = useState<boolean>(false)
-  const [errorMessage, setErrorMessage] = useState<string>('')
-  const [successMessage, setSuccessMessage] = useState<string>('')
 
-  const clearInputAndSetError = (errorMessage: string) => {
+  const clearInputFields = () => {
     if (fullNameRef.current) fullNameRef.current.value = ''
     if (emailRef.current) emailRef.current.value = ''
     if (passwordRef.current) passwordRef.current.value = ''
     if (confirmPasswordRef.current) confirmPasswordRef.current.value = ''
-    return setErrorMessage(errorMessage)
   }
 
   const handleSignUp = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
-    if (passwordRef.current?.value !== confirmPasswordRef.current?.value) {
-      return clearInputAndSetError('Password do not match!')
-    }
+
     try {
+      if (passwordRef.current?.value !== confirmPasswordRef.current?.value) {
+        showMessage('Password does not match', 'error')
+        return
+      }
+
       setLoading(true)
       const res = await createUserWithEmailAndPassword(
         auth,
@@ -59,18 +60,18 @@ export const SignUp = () => {
         displayName: fullNameRef.current?.value,
       })
       dispatch({ type: 'SIGNUP', payload: user })
-      setSuccessMessage('Successfully created account!')
-      clearInputAndSetError('')
+      clearInputFields()
+      showMessage('Successfully created account', 'success')
     } catch (error: any) {
       switch (error.code) {
         case ERROR_CODE.EMAIL_ALREADY_IN_USE:
-          clearInputAndSetError('Email already in use!')
+          showMessage('Email already in use', 'error')
           break
         case ERROR_CODE.WEAK_PASSWORD:
-          clearInputAndSetError('Password should be at least 6 characters!')
+          showMessage('Password should be at least 6 characters', 'error')
           break
         default:
-          clearInputAndSetError('Failed to create an account!')
+          showMessage('Failed to create an account', 'error')
           break
       }
     } finally {
@@ -92,18 +93,6 @@ export const SignUp = () => {
         <Heading as="h1" fontWeight="300" fontSize="24px">
           Sign up to Brainwave
         </Heading>
-        {successMessage && (
-          <Alert status="success" color="brand.dark">
-            <AlertIcon />
-            {successMessage}
-          </Alert>
-        )}
-        {errorMessage && (
-          <Alert status="error" color="brand.dark">
-            <AlertIcon />
-            {errorMessage}
-          </Alert>
-        )}
       </VStack>
       <Card
         bg="brand.softDark"

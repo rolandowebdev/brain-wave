@@ -1,4 +1,4 @@
-import { QuizProps } from '@/models'
+import { QuizProps } from '@/types'
 
 export const menus: QuizProps[] = [
   {

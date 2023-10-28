@@ -1,4 +1,5 @@
 import { Brainwave, CustomInput } from '@/components'
+import { useMessage } from '@/hooks'
 import { auth } from '@/libs'
 import {
   Button,
@@ -11,8 +12,6 @@ import {
   Spinner,
   Stack,
   VStack,
-  Alert,
-  AlertIcon,
   HStack,
   Link,
 } from '@chakra-ui/react'
@@ -21,9 +20,8 @@ import { FormEvent, useRef, useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
 export const ResetPassword = () => {
+  const showMessage = useMessage()
   const [loading, setLoading] = useState<boolean>(false)
-  const [successMessage, setSuccessMessage] = useState<string>('')
-  const [errorMessage, setErrorMessage] = useState<string>('')
 
   const emailRef = useRef<HTMLInputElement>(null)
 
@@ -34,11 +32,11 @@ export const ResetPassword = () => {
     try {
       setLoading(true)
       await sendPasswordResetEmail(auth, emailRef.current?.value || '')
-      setSuccessMessage('Sucessfully, your password updated!')
+      showMessage('Successfully, your password has been updated', 'success')
     } catch (error: any) {
       if (error.code === 'auth/user-not-found')
-        return setErrorMessage('User not found!')
-      setErrorMessage('Failed to reset password!')
+        showMessage('User not found!', 'error')
+      else showMessage('Failed to reset password!', 'error')
     } finally {
       if (emailRef.current) emailRef.current.value = ''
       setLoading(false)
@@ -58,18 +56,6 @@ export const ResetPassword = () => {
         <Heading as="h1" fontWeight="300" fontSize="24px">
           Reset your password
         </Heading>
-        {successMessage && (
-          <Alert status="success" color="brand.dark">
-            <AlertIcon />
-            {successMessage}
-          </Alert>
-        )}
-        {errorMessage && (
-          <Alert status="error" color="brand.dark">
-            <AlertIcon />
-            {errorMessage}
-          </Alert>
-        )}
       </VStack>
       <Card
         bg="brand.softDark"
