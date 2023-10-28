@@ -1,7 +1,6 @@
 import { Brainwave, CustomInput } from '@/components'
 import { ERROR_CODE } from '@/constants'
-import { useAuth } from '@/context'
-import { useMessage } from '@/hooks'
+import { useMessage, useAuth } from '@/hooks'
 import { auth } from '@/libs'
 import {
   Button,

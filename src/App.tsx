@@ -12,7 +12,7 @@ import {
 } from '@/pages'
 import { PrivateRoutes } from '@/routes'
 
-const App = () => {
+export const App = () => {
   return (
     <Box bg="brand.dark" minH="100vh" color="brand.light">
       <Container maxW="4xl" sx={{ minH: 'calc(100vh - 64px)' }}>
@@ -60,5 +60,3 @@ const App = () => {
     </Box>
   )
 }
-
-export default App

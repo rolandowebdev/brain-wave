@@ -105,10 +105,10 @@ export const ResetPassword = () => {
                 fontSize="md"
                 to="/signin"
                 _hover={{
-                  color: 'green.400',
+                  color: 'brand.blue',
                   textDecor: 'underline',
                 }}
-                _focus={{ color: 'green.400' }}>
+                _focus={{ color: 'brand.blue' }}>
                 Back to sign in
               </Link>
             </HStack>

@@ -19,9 +19,8 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 
 import { Brainwave, CustomInput } from '@/components'
 import { ERROR_CODE } from '@/constants'
-import { useAuth } from '@/context'
 import { auth } from '@/libs'
-import { useMessage } from '@/hooks'
+import { useMessage, useAuth } from '@/hooks'
 
 export const SignUp = () => {
   const showMessage = useMessage()

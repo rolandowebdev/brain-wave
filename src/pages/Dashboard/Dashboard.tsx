@@ -1,5 +1,5 @@
 import { MenuCard, Navbar } from '@/components'
-import { useAuth } from '@/context'
+import { useAuth } from '@/hooks'
 import { menus } from '@/data'
 import { handleSignOut } from '@/utils'
 import { Box, Grid, Heading, Text, VStack } from '@chakra-ui/react'

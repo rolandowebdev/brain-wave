@@ -1,30 +1,30 @@
-import {
-  createContext,
-  useEffect,
-  useReducer,
-  ReactNode,
-  useContext,
-} from 'react'
-import { AuthReducer } from './AuthReducer'
+import { createContext, useEffect, useReducer, ReactNode } from 'react'
 import { AuthContextProps, AuthState } from '@/types'
+import { AuthReducer } from './AuthReducer'
 
 interface AuthProviderProps {
   children: ReactNode
 }
 
-const INITIAL_STATE: AuthState = {
-  currentUser: JSON.parse(localStorage.getItem('user') || 'null'),
+const parseJSON = (data: string | null): any => {
+  try {
+    return data ? JSON.parse(data) : null
+  } catch (error) {
+    console.error('Error parsing JSON:', error)
+    return null
+  }
 }
 
-const AuthContext = createContext<AuthContextProps>({
+const INITIAL_STATE: AuthState = {
+  currentUser: parseJSON(localStorage.getItem('user')),
+}
+
+export const AuthContext = createContext<AuthContextProps>({
   currentUser: null,
   dispatch: () => {
     throw new Error('dispatch function not implemented')
   },
 })
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const useAuth = () => useContext(AuthContext)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE)

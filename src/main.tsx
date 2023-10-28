@@ -1,6 +1,6 @@
 import '@fontsource/fira-sans'
 
-import App from '@/App'
+import { App } from '@/App'
 import { AuthProvider } from '@/context'
 import { theme } from '@/styles/theme'
 import { ChakraProvider } from '@chakra-ui/react'
