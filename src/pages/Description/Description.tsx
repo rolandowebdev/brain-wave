@@ -1,6 +1,9 @@
 import { Navbar } from '@/components'
+import { useAuth } from '@/hooks'
+import { auth } from '@/libs'
+import { AuthActionTypes } from '@/types'
 import { getDescription, getKeyStorage, isLocalStorageKeyExist } from '@/utils'
-import { getIllustration, handleSignOut } from '@/utils'
+import { getIllustration } from '@/utils'
 import { ChevronLeftIcon } from '@chakra-ui/icons'
 import {
   Box,
@@ -13,10 +16,12 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
+import { signOut } from 'firebase/auth'
 import { useNavigate, useParams } from 'react-router-dom'
 
 export const Description = () => {
   const navigate = useNavigate()
+  const { dispatch } = useAuth()
   const { category } = useParams()
 
   const categoryData = getDescription(category)
@@ -25,9 +30,20 @@ export const Description = () => {
   const quizKey = getKeyStorage(category)
   const keyExists = isLocalStorageKeyExist(quizKey)
 
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth)
+      localStorage.clear()
+      dispatch({ type: AuthActionTypes.LOGOUT })
+      navigate('/signin')
+    } catch {
+      throw new Error('Failed to sign out!')
+    }
+  }
+
   return (
     <>
-      <Navbar signout={() => handleSignOut(navigate)} />
+      <Navbar signout={handleSignOut} />
       <HStack mt="44px" justifyContent="space-between" alignItems="center">
         <IconButton
           borderColor="brand.light"
@@ -40,7 +56,7 @@ export const Description = () => {
             borderColor: 'green.400',
           }}
           _focus={{ bgColor: 'green.400', borderColor: 'green.400' }}
-          icon={<ChevronLeftIcon fontSize="3xl" />}
+          icon={<ChevronLeftIcon fontSize="3xl" color="brand.light" />}
         />
       </HStack>
       <Box as="main" pb="40px">

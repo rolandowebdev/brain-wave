@@ -1,6 +1,7 @@
 import { Navbar, Timer } from '@/components'
-import { useAxios } from '@/hooks'
-import { generateRandom } from '@/libs/generateRandom'
+import { useAuth, useAxios } from '@/hooks'
+import { auth } from '@/libs'
+import { AuthActionTypes } from '@/types'
 import {
   getCategoryName,
   getIllustration,
@@ -11,7 +12,7 @@ import {
   isLocalStorageKeyExist,
   saveQuizData,
 } from '@/utils'
-import { handleSignOut } from '@/utils'
+import { generateRandom } from '@/utils'
 import { CloseIcon } from '@chakra-ui/icons'
 import {
   Button,
@@ -23,6 +24,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
+import { signOut } from 'firebase/auth'
 import { decode } from 'html-entities'
 import { MouseEventHandler, useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
@@ -31,6 +33,7 @@ const TIMER_COUNT = 30
 
 export const Quiz = () => {
   const navigate = useNavigate()
+  const { dispatch } = useAuth()
   const { quizName } = useParams()
 
   const illustration = getIllustration(quizName, 'static', 'small')
@@ -127,6 +130,17 @@ export const Quiz = () => {
     moveNextQuestion()
   }
 
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth)
+      localStorage.clear()
+      dispatch({ type: AuthActionTypes.LOGOUT })
+      navigate('/signin')
+    } catch {
+      throw new Error('Failed to sign out!')
+    }
+  }
+
   if (hasNavigatedResult) {
     return <Navigate to={`${resultQuizUrl}`} replace={true} />
   }
@@ -147,7 +161,7 @@ export const Quiz = () => {
 
   return (
     <>
-      <Navbar signout={() => handleSignOut(navigate)} />
+      <Navbar signout={handleSignOut} />
       <IconButton
         onClick={() => navigate(-1)}
         mt="44px"
@@ -160,7 +174,7 @@ export const Quiz = () => {
           borderColor: 'green.400',
         }}
         _focus={{ bgColor: 'green.400', borderColor: 'green.400' }}
-        icon={<CloseIcon fontSize="sm" />}
+        icon={<CloseIcon fontSize="sm" color="brand.light" />}
       />
       {!error ? (
         <Stack
@@ -230,6 +244,7 @@ export const Quiz = () => {
                   value={decode(randomAnswer)}
                   backgroundColor="brand.softDark"
                   size="lg"
+                  color="brand.light"
                   w="full"
                   _hover={{
                     backgroundColor: 'brand.light',

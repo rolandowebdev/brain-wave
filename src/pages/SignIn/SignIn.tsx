@@ -2,6 +2,7 @@ import { Brainwave, CustomInput } from '@/components'
 import { ERROR_CODE } from '@/constants'
 import { useMessage, useAuth } from '@/hooks'
 import { auth } from '@/libs'
+import { AuthActionTypes } from '@/types'
 import {
   Button,
   Card,
@@ -40,7 +41,7 @@ export const SignIn = () => {
         passwordRef.current?.value || ''
       )
       const user = userCredential.user
-      dispatch({ type: 'SIGNIN', payload: user })
+      dispatch({ type: AuthActionTypes.SIGNIN, payload: user })
       navigate('/', { replace: true })
     } catch (error: any) {
       switch (error.code) {

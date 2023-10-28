@@ -1,21 +1,21 @@
-import { AuthAction, AuthState } from '@/types'
+import { AuthAction, AuthActionTypes, AuthState } from '@/types'
 
 export const AuthReducer = (
   state: AuthState,
   action: AuthAction
 ): AuthState => {
   switch (action.type) {
-    case 'SIGNIN': {
+    case AuthActionTypes.SIGNIN: {
       return {
         currentUser: action.payload,
       }
     }
-    case 'SIGNUP': {
+    case AuthActionTypes.SIGNUP: {
       return {
         currentUser: action.payload,
       }
     }
-    case 'LOGOUT': {
+    case AuthActionTypes.LOGOUT: {
       return {
         currentUser: null,
       }

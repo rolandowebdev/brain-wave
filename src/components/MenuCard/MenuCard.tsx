@@ -36,7 +36,7 @@ export const MenuCard = ({ category, title, difficulty }: QuizProps) => {
             variant="outline"
             rounded="xl"
             aria-label="Search database"
-            icon={<StarIcon />}
+            icon={<StarIcon color="brand.light" />}
             _hover={{ bgColor: 'transparent' }}
           />
           <Wrap display={['none', 'block', 'none', 'block']}>

@@ -1,16 +1,30 @@
 import { MenuCard, Navbar } from '@/components'
 import { useAuth } from '@/hooks'
 import { menus } from '@/data'
-import { handleSignOut } from '@/utils'
 import { Box, Grid, Heading, Text, VStack } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
+import { signOut } from 'firebase/auth'
+import { auth } from '@/libs'
+import { AuthActionTypes } from '@/types'
 
 export const Dashboard = () => {
   const navigate = useNavigate()
-  const { currentUser } = useAuth()
+  const { dispatch, currentUser } = useAuth()
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth)
+      localStorage.clear()
+      dispatch({ type: AuthActionTypes.LOGOUT })
+      navigate('/signin')
+    } catch {
+      throw new Error('Failed to sign out!')
+    }
+  }
+
   return (
     <>
-      <Navbar signout={() => handleSignOut(navigate)} />
+      <Navbar signout={handleSignOut} />
       <Box as="main" py="34px">
         <VStack
           spacing={1}

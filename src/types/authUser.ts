@@ -1,16 +1,22 @@
 import { User } from 'firebase/auth'
 import { Dispatch } from 'react'
 
-export interface AuthContextProps {
+export enum AuthActionTypes {
+  SIGNIN = 'SIGNIN',
+  SIGNUP = 'SIGNUP',
+  LOGOUT = 'LOGOUT',
+}
+
+export type AuthAction = {
+  type: AuthActionTypes
+  payload?: any
+}
+
+export type AuthContextProps = {
   currentUser: User | null
   dispatch: Dispatch<AuthAction>
 }
 
-export interface AuthAction {
-  type: 'SIGNIN' | 'SIGNUP' | 'LOGOUT'
-  payload?: any
-}
-
-export interface AuthState {
+export type AuthState = {
   currentUser: User | null
 }

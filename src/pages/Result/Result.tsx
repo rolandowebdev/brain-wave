@@ -34,90 +34,76 @@ export const Result = () => {
   }
 
   return (
-    <>
-      <Container
-        as="main"
-        maxW="lg"
-        display="flex"
-        flexDir="column"
-        justifyContent="center"
-        alignItems="center"
-        height="100vh">
-        <Heading as="h1">Your Final Result</Heading>
-        <Grid templateColumns="repeat(2, 1fr)" w="full" gap={4} mt={8} mb={4}>
-          <GridItem>
-            <Card align="center" py={2} bg="brand.softDark" color="brand.light">
-              <CardBody>
-                <Heading
-                  as="h2"
-                  fontSize="xl"
-                  fontWeight="normal"
-                  lineHeight={0}>
-                  Correct Answer
-                </Heading>
-              </CardBody>
-              <CardFooter mt={4}>
-                <Text color="green.400" fontSize="7xl" lineHeight={0}>
-                  {correctAnswer}
-                  <Text as="span" fontSize="lg" color="brand.light">
-                    / {amountOfQuestion}
-                  </Text>
+    <Container
+      as="main"
+      maxW="lg"
+      display="flex"
+      flexDir="column"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh">
+      <Heading as="h1">Your Final Result</Heading>
+      <Grid templateColumns="repeat(2, 1fr)" w="full" gap={4} mt={8} mb={4}>
+        <GridItem>
+          <Card align="center" py={2} bg="brand.softDark" color="brand.light">
+            <CardBody>
+              <Heading as="h2" fontSize="xl" fontWeight="normal" lineHeight={0}>
+                Correct Answer
+              </Heading>
+            </CardBody>
+            <CardFooter mt={4}>
+              <Text color="green.400" fontSize="7xl" lineHeight={0}>
+                {correctAnswer}
+                <Text as="span" fontSize="lg" color="brand.light">
+                  / {amountOfQuestion}
                 </Text>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem>
-            <Card align="center" py={2} bg="brand.softDark" color="brand.light">
-              <CardBody>
-                <Heading
-                  as="h2"
-                  fontSize="xl"
-                  fontWeight="normal"
-                  lineHeight={0}>
-                  Incorrect Answer
-                </Heading>
-              </CardBody>
-              <CardFooter mt={4}>
-                <Text color="red.400" fontSize="7xl" lineHeight={0}>
-                  {incorrectAnswers}
-                  <Text as="span" fontSize="lg" color="brand.light">
-                    / {amountOfQuestion}
-                  </Text>
+              </Text>
+            </CardFooter>
+          </Card>
+        </GridItem>
+        <GridItem>
+          <Card align="center" py={2} bg="brand.softDark" color="brand.light">
+            <CardBody>
+              <Heading as="h2" fontSize="xl" fontWeight="normal" lineHeight={0}>
+                Incorrect Answer
+              </Heading>
+            </CardBody>
+            <CardFooter mt={4}>
+              <Text color="red.400" fontSize="7xl" lineHeight={0}>
+                {incorrectAnswers}
+                <Text as="span" fontSize="lg" color="brand.light">
+                  / {amountOfQuestion}
                 </Text>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem colSpan={2}>
-            <Card align="center" py={2} bg="brand.softDark" color="brand.light">
-              <CardBody>
-                <Heading
-                  as="h2"
-                  fontSize="xl"
-                  fontWeight="normal"
-                  lineHeight={0}>
-                  Not Answerd
-                </Heading>
-              </CardBody>
-              <CardFooter mt={4}>
-                <Text color="gray.400" fontSize="7xl" lineHeight={0}>
-                  {notAnswerd}
-                  <Text as="span" fontSize="lg" color="brand.light">
-                    / {amountOfQuestion}
-                  </Text>
+              </Text>
+            </CardFooter>
+          </Card>
+        </GridItem>
+        <GridItem colSpan={2}>
+          <Card align="center" py={2} bg="brand.softDark" color="brand.light">
+            <CardBody>
+              <Heading as="h2" fontSize="xl" fontWeight="normal" lineHeight={0}>
+                Not Answered
+              </Heading>
+            </CardBody>
+            <CardFooter mt={4}>
+              <Text color="gray.400" fontSize="7xl" lineHeight={0}>
+                {notAnswerd}
+                <Text as="span" fontSize="lg" color="brand.light">
+                  / {amountOfQuestion}
                 </Text>
-              </CardFooter>
-            </Card>
-          </GridItem>
-        </Grid>
-        <Button
-          colorScheme="green"
-          fontWeight="normal"
-          w="full"
-          size="lg"
-          onClick={handleBackToDashboard}>
-          Back to Dashboard
-        </Button>
-      </Container>
-    </>
+              </Text>
+            </CardFooter>
+          </Card>
+        </GridItem>
+      </Grid>
+      <Button
+        colorScheme="green"
+        fontWeight="normal"
+        w="full"
+        size="lg"
+        onClick={handleBackToDashboard}>
+        Back to Dashboard
+      </Button>
+    </Container>
   )
 }

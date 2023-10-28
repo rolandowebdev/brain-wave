@@ -21,6 +21,7 @@ import { Brainwave, CustomInput } from '@/components'
 import { ERROR_CODE } from '@/constants'
 import { auth } from '@/libs'
 import { useMessage, useAuth } from '@/hooks'
+import { AuthActionTypes } from '@/types'
 
 export const SignUp = () => {
   const showMessage = useMessage()
@@ -58,7 +59,7 @@ export const SignUp = () => {
       const user = await updateProfile(res.user, {
         displayName: fullNameRef.current?.value,
       })
-      dispatch({ type: 'SIGNUP', payload: user })
+      dispatch({ type: AuthActionTypes.SIGNUP, payload: user })
       clearInputFields()
       showMessage('Successfully created account', 'success')
     } catch (error: any) {

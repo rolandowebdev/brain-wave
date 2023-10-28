@@ -16,7 +16,7 @@ import {
 import { Link as RouterLink } from 'react-router-dom'
 import { Brainwave, SignOut } from '../Logo'
 
-interface NavbarProps {
+type NavbarProps = {
   signout: () => Promise<void>
 }
 

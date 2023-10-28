@@ -1,2 +1,2 @@
-export * from './errorCode'
 export * from './apiUrl'
+export * from './errorCode'
