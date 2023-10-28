@@ -12,7 +12,6 @@ import {
   Spinner,
   Stack,
   VStack,
-  HStack,
   Link,
 } from '@chakra-ui/react'
 import { sendPasswordResetEmail } from 'firebase/auth'
@@ -53,7 +52,7 @@ export const ResetPassword = () => {
       alignItems="center">
       <VStack as="header" spacing="6" mt="8">
         <Brainwave size="64" />
-        <Heading as="h1" fontWeight="300" fontSize="24px">
+        <Heading as="h1" fontWeight="300" fontSize="24px" textAlign="center">
           Reset your password
         </Heading>
       </VStack>
@@ -62,7 +61,8 @@ export const ResetPassword = () => {
         color="brand.light"
         variant="outline"
         borderColor="brand.border"
-        w="308px">
+        maxW="308px"
+        w="full">
         <CardBody>
           <form onSubmit={handleResetPassword}>
             <Stack spacing="4">
@@ -96,22 +96,21 @@ export const ResetPassword = () => {
         color="brand.light"
         bgColor="brand.dark"
         borderColor="brand.border"
-        w="308px">
+        maxW="308px"
+        w="full">
         <CardBody>
           <Center>
-            <HStack fontSize="sm" spacing="1">
-              <Link
-                as={RouterLink}
-                fontSize="md"
-                to="/signin"
-                _hover={{
-                  color: 'brand.blue',
-                  textDecor: 'underline',
-                }}
-                _focus={{ color: 'brand.blue' }}>
-                Back to sign in
-              </Link>
-            </HStack>
+            <Link
+              as={RouterLink}
+              fontSize="md"
+              to="/signin"
+              _hover={{
+                color: 'brand.blue',
+                textDecor: 'underline',
+              }}
+              _focus={{ color: 'brand.blue' }}>
+              Back to sign in
+            </Link>
           </Center>
         </CardBody>
       </Card>

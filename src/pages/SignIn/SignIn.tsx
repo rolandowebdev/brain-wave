@@ -77,7 +77,7 @@ export const SignIn = () => {
       paddingBottom="32px">
       <VStack as="header" spacing="4" mt="6">
         <Brainwave size="48" />
-        <Heading as="h1" fontWeight="300" fontSize="24px">
+        <Heading as="h1" fontWeight="300" fontSize="24px" textAlign="center">
           Sign in to Brainwave
         </Heading>
       </VStack>
@@ -86,7 +86,8 @@ export const SignIn = () => {
         color="brand.light"
         variant="outline"
         borderColor="brand.border"
-        w="308px">
+        maxW="308px"
+        w="full">
         <CardBody>
           <form onSubmit={handleSignIn}>
             <Stack spacing="4">
@@ -95,7 +96,11 @@ export const SignIn = () => {
                 <CustomInput type="email" ref={emailRef} />
               </FormControl>
               <FormControl as="fieldset">
-                <HStack justify="space-between">
+                <HStack
+                  justify="space-between"
+                  alignItems="center"
+                  gap={4}
+                  flexWrap="wrap">
                   <FormLabel fontSize="sm">Password</FormLabel>
                   <Button
                     onClick={() => navigate('/resetPassword')}
@@ -134,16 +139,15 @@ export const SignIn = () => {
         color="brand.light"
         bgColor="brand.dark"
         borderColor="brand.border"
-        w="308px">
+        maxW="308px"
+        w="full">
         <CardBody>
-          <Center>
-            <HStack fontSize="sm" spacing="1">
-              <Text>New to Brainwave?</Text>
-              <Link as={RouterLink} to="/signup" color="brand.blue">
-                Create an account
-              </Link>
-            </HStack>
-          </Center>
+          <HStack fontSize="sm" flexWrap="wrap" justifyContent="center">
+            <Text>New to Brainwave?</Text>
+            <Link as={RouterLink} to="/signup" color="brand.blue">
+              Create an account
+            </Link>
+          </HStack>
         </CardBody>
       </Card>
     </Center>

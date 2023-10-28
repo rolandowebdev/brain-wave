@@ -59,22 +59,22 @@ export const Quiz = () => {
   const results = response ? response?.results : []
 
   const [randomAnswers, setRandomAnswers] = useState<string[]>([])
-  const [notAnswerd, setNotAnswerd] = useState<number>(amountOfQuestion)
+  const [notAnswered, setNotAnswered] = useState<number>(amountOfQuestion)
   const [hasNavigatedResult, setHasNavigatedResult] = useState<boolean>(false)
 
-  const newGameTimer = notAnswerd * TIMER_COUNT
-  const continueGameTimer = (notAnswerd - questionIndex) * TIMER_COUNT
+  const newGameTimer = notAnswered * TIMER_COUNT
+  const continueGameTimer = (notAnswered - questionIndex) * TIMER_COUNT
 
   const quizData = {
     questionIndex: questionIndex,
     incorrectAnswers: incorrectAnswers,
     correctAnswer: correctAnswer,
-    notAnswerd: notAnswerd,
+    notAnswered: notAnswered,
   }
 
   useEffect(() => {
     if (!loading && results) saveQuizData(quizName, quizData)
-  }, [questionIndex, correctAnswer, incorrectAnswers, notAnswerd])
+  }, [questionIndex, correctAnswer, incorrectAnswers, notAnswered])
 
   const handleRandomAnswers = () => {
     const question = results[questionIndex]
@@ -112,7 +112,7 @@ export const Quiz = () => {
     if (isCorrect) setCorrectAnswer(correctAnswer + 1)
     if (isIncorrect) setIncorrectAnswers(incorrectAnswers + 1)
     if (!isCorrect || !isIncorrect) {
-      setNotAnswerd(results?.length - (incorrectAnswers + correctAnswer) - 1)
+      setNotAnswered(results?.length - (incorrectAnswers + correctAnswer) - 1)
     }
   }
 

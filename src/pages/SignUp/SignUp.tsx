@@ -90,7 +90,7 @@ export const SignUp = () => {
       paddingBottom="32px">
       <VStack as="header" spacing="4" mt="6">
         <Brainwave size="48" />
-        <Heading as="h1" fontWeight="300" fontSize="24px">
+        <Heading as="h1" fontWeight="300" fontSize="24px" textAlign="center">
           Sign up to Brainwave
         </Heading>
       </VStack>
@@ -99,7 +99,8 @@ export const SignUp = () => {
         color="brand.light"
         variant="outline"
         borderColor="brand.border"
-        w="308px">
+        maxW="308px"
+        w="full">
         <CardBody>
           <form onSubmit={handleSignUp}>
             <Stack spacing={4}>
@@ -145,16 +146,19 @@ export const SignUp = () => {
         color="brand.light"
         bgColor="brand.dark"
         borderColor="brand.border"
-        w="308px">
+        maxW="308px"
+        w="full">
         <CardBody>
-          <Center>
-            <HStack fontSize="sm" spacing="1">
-              <Text>Already have an account?</Text>
-              <Link as={RouterLink} to="/signin" color="brand.blue">
-                Sign In
-              </Link>
-            </HStack>
-          </Center>
+          <HStack
+            fontSize="sm"
+            spacing="1"
+            justifyContent="center"
+            flexWrap="wrap">
+            <Text>Already have an account?</Text>
+            <Link as={RouterLink} to="/signin" color="brand.blue">
+              Sign In
+            </Link>
+          </HStack>
         </CardBody>
       </Card>
     </Center>
