@@ -39,7 +39,7 @@ export const MenuCard = ({ category, title, difficulty }: QuizProps) => {
             icon={<StarIcon color="brand.light" />}
             _hover={{ bgColor: 'transparent' }}
           />
-          <Wrap display={['none', 'block', 'none', 'block']}>
+          <Wrap display={['none', 'none', 'none', 'block']}>
             {illustration}
           </Wrap>
         </CardBody>

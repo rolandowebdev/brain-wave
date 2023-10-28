@@ -10,7 +10,7 @@ export const getDescription = (category: any): QuizProps => {
         difficulty: 'Easy',
         quizName: 'animalsQuiz',
         description:
-          'Animals are multicellular organisms that live in diverse habitats and have a wide range of adaptations. They can be classified into various groups based on characteristics such as body structure, diet, and reproductive strategies. Some animals are domesticated and used for food, clothing, or labor, while others play important ecological roles as pollinators, predators, or prey. The study of animals, or zoology, helps us understand the diversity and complexity of the natural world and our relationship with it.',
+          'Animals, diverse in habitats and adaptations, vary in structure, diet, and reproduction. Classifiable by these traits, some serve human needs, while others maintain crucial ecological roles as pollinators, predators, or prey. Zoology, the study of animals, unravels the complexities of nature, revealing our interconnection with the diverse natural world.',
       }
     case 'knowledge':
       return {
@@ -20,7 +20,7 @@ export const getDescription = (category: any): QuizProps => {
         difficulty: 'Medium',
         quizName: 'knowledgeQuiz',
         description:
-          'Knowledge is the understanding and awareness of information gained through experience, education, or observation. It can be explicit or tacit, and is constantly evolving as new information is acquired. The pursuit of knowledge is a fundamental aspect of human curiosity and enables us to innovate, problem-solve, and make informed decisions. Knowledge can be applied to many areas of life, from personal growth to scientific research, and is considered an essential resource for personal and societal development.',
+          'Knowledge, shaped by experience, education, and observation, is the bedrock of human understanding. Constantly evolving, it fuels curiosity, innovation, and informed decision-making, impacting personal growth and societal progress across various domains.',
       }
     case 'computer':
       return {
@@ -30,7 +30,7 @@ export const getDescription = (category: any): QuizProps => {
         difficulty: 'Hard',
         quizName: 'computerQuiz',
         description:
-          'A computer is an electronic device that processes and stores data. It consists of a CPU, memory, input/output devices, and storage devices. Together, these components enable computers to perform a wide range of tasks, from basic word processing to complex simulations and calculations.',
+          'A computer, comprising the CPU, memory, and input/output tools, adeptly processes and stores data, catering to a spectrum of tasks, from basic functions to complex operations.',
       }
     case 'geography':
       return {
