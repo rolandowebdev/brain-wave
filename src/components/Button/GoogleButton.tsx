@@ -1,5 +1,5 @@
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import { Button, Icon, Spinner } from '@chakra-ui/react'
+import { Box, Button, Icon, Spinner, Text } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
 import { useState } from 'react'
@@ -42,18 +42,20 @@ export const GoogleButton = () => {
       onClick={handleGoogleSignIn}
       colorScheme="blue"
       fontWeight="300"
-      leftIcon={<Icon as={FcGoogle} />}
       size="sm">
       {loading ? (
         <Spinner
           thickness="4px"
           speed="0.65s"
           emptyColor="gray.200"
-          color="green.400"
+          color="blue.400"
           size="sm"
         />
       ) : (
-        'Continue with Google'
+        <Box display="flex" alignItems="start" gap={1}>
+          <Icon as={FcGoogle} />
+          <Text as="span">Continue with Google</Text>
+        </Box>
       )}
     </Button>
   )
