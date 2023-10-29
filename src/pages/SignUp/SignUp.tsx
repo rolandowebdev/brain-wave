@@ -1,5 +1,8 @@
-import { useState, useRef, FormEvent } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+import { Brainwave, CustomInput, GoogleButton } from '@/components'
+import { ERROR_CODE } from '@/constants'
+import { useAuth, useMessage } from '@/hooks'
+import { auth } from '@/libs'
+import { AuthActionTypes } from '@/types'
 import {
   Button,
   Card,
@@ -16,13 +19,8 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-
-import { Brainwave, CustomInput } from '@/components'
-import { ERROR_CODE } from '@/constants'
-import { auth } from '@/libs'
-import { useMessage, useAuth } from '@/hooks'
-import { AuthActionTypes } from '@/types'
-import GoogleButton from '@/components/Button/GoogleButton'
+import { FormEvent, useRef, useState } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 
 export const SignUp = () => {
   const { dispatch } = useAuth()

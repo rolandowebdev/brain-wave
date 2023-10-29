@@ -8,7 +8,7 @@ import { useAuth, useMessage } from '@/hooks'
 import { AuthActionTypes } from '@/types'
 import { auth } from '@/libs'
 
-export default function GoogleButton() {
+export const GoogleButton = () => {
   const navigate = useNavigate()
   const { dispatch } = useAuth()
   const { showMessage } = useMessage()

@@ -66,13 +66,14 @@ export const Navbar = ({ signout }: NavbarProps) => {
             <Text as="p">Do you really wish to leave and sign out?</Text>
           </ModalBody>
           <ModalFooter display="flex" alignItems="center" gap={2}>
-            <Button variant="solid" bgColor="brand.light" onClick={onClose}>
+            <Button variant="solid" onClick={onClose}>
               Cancel
             </Button>
             <Button
               variant="solid"
               bgColor="brand.red"
               color="brand.light"
+              _hover={{ bgColor: '#c23737' }}
               onClick={signout}>
               Sign out
             </Button>

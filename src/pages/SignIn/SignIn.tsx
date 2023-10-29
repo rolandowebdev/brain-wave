@@ -1,4 +1,4 @@
-import { Brainwave, CustomInput } from '@/components'
+import { Brainwave, CustomInput, GoogleButton } from '@/components'
 import { ERROR_CODE } from '@/constants'
 import { useMessage, useAuth } from '@/hooks'
 import { auth } from '@/libs'
@@ -21,7 +21,6 @@ import {
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { FormEvent, useRef, useState } from 'react'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
-import GoogleButton from '@/components/Button/GoogleButton'
 
 export const SignIn = () => {
   const navigate = useNavigate()
