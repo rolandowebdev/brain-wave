@@ -22,6 +22,7 @@ import { ERROR_CODE } from '@/constants'
 import { auth } from '@/libs'
 import { useMessage, useAuth } from '@/hooks'
 import { AuthActionTypes } from '@/types'
+import GoogleButton from '@/components/Button/GoogleButton'
 
 export const SignUp = () => {
   const { dispatch } = useAuth()
@@ -129,6 +130,7 @@ export const SignUp = () => {
                   'Sign up'
                 )}
               </Button>
+              <GoogleButton />
             </Stack>
           </form>
         </CardBody>
