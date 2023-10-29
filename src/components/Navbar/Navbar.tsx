@@ -22,6 +22,7 @@ type NavbarProps = {
 
 export const Navbar = ({ signout }: NavbarProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+
   return (
     <HStack h="64px" justifyContent="space-between" alignItems="center">
       <HStack>
@@ -58,14 +59,21 @@ export const Navbar = ({ signout }: NavbarProps) => {
         onClose={onClose}
         isCentered>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent mx={4}>
           <ModalHeader>Sign out</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Text as="p">Do you really wish to leave and sign out?</Text>
           </ModalBody>
-          <ModalFooter>
-            <Button variant="solid" onClick={signout}>
+          <ModalFooter display="flex" alignItems="center" gap={2}>
+            <Button variant="solid" bgColor="brand.light" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button
+              variant="solid"
+              bgColor="brand.red"
+              color="brand.light"
+              onClick={signout}>
               Sign out
             </Button>
           </ModalFooter>

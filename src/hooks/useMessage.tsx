@@ -5,7 +5,7 @@ export const useMessage = () => {
 
   const showMessage = (message: string, status: 'success' | 'error') => {
     toast({
-      position: 'top-right',
+      position: 'bottom',
       title: message,
       status: status,
       duration: 3000,

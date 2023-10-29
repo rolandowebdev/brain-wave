@@ -46,8 +46,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.2",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.3.0",
     "prettier": "^2.8.8",
     "typescript": "^5.0.4",
     "vite": "^4.3.2"
