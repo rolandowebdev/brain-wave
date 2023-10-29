@@ -23,9 +23,9 @@ import { FormEvent, useRef, useState } from 'react'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 
 export const SignIn = () => {
-  const showMessage = useMessage()
   const navigate = useNavigate()
   const { dispatch } = useAuth()
+  const { showMessage } = useMessage()
 
   const emailRef = useRef<HTMLInputElement>(null)
   const passwordRef = useRef<HTMLInputElement>(null)
@@ -98,14 +98,14 @@ export const SignIn = () => {
               <FormControl as="fieldset">
                 <HStack
                   justify="space-between"
-                  alignItems="center"
+                  alignItems="flex-start"
                   gap={4}
                   flexWrap="wrap">
                   <FormLabel fontSize="sm">Password</FormLabel>
                   <Button
                     onClick={() => navigate('/resetPassword')}
                     variant="link"
-                    fontSize="xs"
+                    fontSize="sm"
                     color="brand.blue"
                     fontWeight="500">
                     Forgot password?

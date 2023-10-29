@@ -35,7 +35,11 @@ export const CustomInput = forwardRef(
               bg="transparent"
               onClick={handleClick}
               _hover={{ bg: 'transparent' }}>
-              {show ? <ViewIcon /> : <ViewOffIcon />}
+              {show ? (
+                <ViewIcon color="brand.light" />
+              ) : (
+                <ViewOffIcon color="brand.light" />
+              )}
             </Button>
           </InputRightElement>
         )}

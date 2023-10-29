@@ -24,8 +24,8 @@ import { useMessage, useAuth } from '@/hooks'
 import { AuthActionTypes } from '@/types'
 
 export const SignUp = () => {
-  const showMessage = useMessage()
   const { dispatch } = useAuth()
+  const { showMessage } = useMessage()
 
   const fullNameRef = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
@@ -33,13 +33,6 @@ export const SignUp = () => {
   const confirmPasswordRef = useRef<HTMLInputElement>(null)
 
   const [loading, setLoading] = useState<boolean>(false)
-
-  const clearInputFields = () => {
-    if (fullNameRef.current) fullNameRef.current.value = ''
-    if (emailRef.current) emailRef.current.value = ''
-    if (passwordRef.current) passwordRef.current.value = ''
-    if (confirmPasswordRef.current) confirmPasswordRef.current.value = ''
-  }
 
   const handleSignUp = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
@@ -60,7 +53,6 @@ export const SignUp = () => {
         displayName: fullNameRef.current?.value,
       })
       dispatch({ type: AuthActionTypes.SIGNUP, payload: user })
-      clearInputFields()
       showMessage('Successfully created account', 'success')
     } catch (error: any) {
       switch (error.code) {

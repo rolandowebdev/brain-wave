@@ -19,7 +19,7 @@ import { FormEvent, useRef, useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
 export const ResetPassword = () => {
-  const showMessage = useMessage()
+  const { showMessage } = useMessage()
   const [loading, setLoading] = useState<boolean>(false)
 
   const emailRef = useRef<HTMLInputElement>(null)

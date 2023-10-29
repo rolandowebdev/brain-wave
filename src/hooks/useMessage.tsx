@@ -13,5 +13,5 @@ export const useMessage = () => {
     })
   }
 
-  return showMessage
+  return { showMessage }
 }
