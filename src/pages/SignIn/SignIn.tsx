@@ -21,6 +21,7 @@ import {
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { FormEvent, useRef, useState } from 'react'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import GoogleButton from '@/components/Button/GoogleButton'
 
 export const SignIn = () => {
   const navigate = useNavigate()
@@ -130,6 +131,7 @@ export const SignIn = () => {
                   'Sign in'
                 )}
               </Button>
+              <GoogleButton />
             </Stack>
           </form>
         </CardBody>
