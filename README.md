@@ -4,7 +4,7 @@
 
 ## Developing
 
-Node.js `>= 16.x` setup with [yarn](https://yarnpkg.com/) is recommended.
+Node.js `>= 18.x` setup with [yarn](https://yarnpkg.com/) is recommended.
 
 ```bash
 # duplicate & fill environment file
