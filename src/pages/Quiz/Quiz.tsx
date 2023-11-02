@@ -202,7 +202,10 @@ export const Quiz = () => {
                 borderRadius="md">
                 Correct :{' '}
                 <Text as="span" color="green.400">
-                  {correctAnswer} / {results?.length}
+                  {correctAnswer}{' '}
+                  <Text as="span" color="brand.light">
+                    / {results?.length}
+                  </Text>
                 </Text>
               </Text>
               <Text
@@ -214,9 +217,12 @@ export const Quiz = () => {
                 py={2}
                 backgroundColor="brand.softDark"
                 borderRadius="md">
-                InCorrect :{' '}
+                Incorrect :{' '}
                 <Text as="span" color="red.400">
-                  {incorrectAnswers} / {results?.length}
+                  {incorrectAnswers}{' '}
+                  <Text as="span" color="brand.light">
+                    / {results?.length}
+                  </Text>
                 </Text>
               </Text>
               <Timer

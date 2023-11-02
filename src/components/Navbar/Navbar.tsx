@@ -26,7 +26,7 @@ export const Navbar = ({ signout }: NavbarProps) => {
   return (
     <HStack h="64px" justifyContent="space-between" alignItems="center">
       <HStack>
-        <Brainwave size="38" />
+        <Brainwave size="32" />
         <Link
           as={RouterLink}
           to="/"

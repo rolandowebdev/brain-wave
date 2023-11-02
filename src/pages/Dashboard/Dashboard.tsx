@@ -33,11 +33,8 @@ export const Dashboard = () => {
           <Text as="p" letterSpacing="wide" fontSize="22px">
             Let's Play!
           </Text>
-          <Heading as="h1" fontSize="26px">
-            Be the first{' '}
-            <Text as="span" textDecor="underline" textTransform="capitalize">
-              {currentUser?.displayName}
-            </Text>
+          <Heading as="h1" fontSize="3xl">
+            Be the first {currentUser?.displayName}
           </Heading>
         </VStack>
         <Grid
