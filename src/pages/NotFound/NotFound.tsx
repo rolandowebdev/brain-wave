@@ -22,7 +22,6 @@ export const NotFound = () => {
         onClick={() => navigate('/')}
         colorScheme="green"
         size="lg"
-        w="31%"
         fontWeight="normal">
         Back to home page
       </Button>

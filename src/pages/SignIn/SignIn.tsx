@@ -1,4 +1,9 @@
-import { Brainwave, CustomInput, GoogleButton } from '@/components'
+import {
+  Brainwave,
+  CustomInput,
+  GithubButton,
+  GoogleButton,
+} from '@/components'
 import { ERROR_CODE } from '@/constants'
 import { useMessage, useAuth } from '@/hooks'
 import { auth } from '@/libs'
@@ -130,6 +135,7 @@ export const SignIn = () => {
                   'Sign in'
                 )}
               </Button>
+              <GithubButton />
               <GoogleButton />
             </Stack>
           </form>

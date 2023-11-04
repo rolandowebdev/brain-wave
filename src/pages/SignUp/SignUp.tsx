@@ -1,4 +1,9 @@
-import { Brainwave, CustomInput, GoogleButton } from '@/components'
+import {
+  Brainwave,
+  CustomInput,
+  GithubButton,
+  GoogleButton,
+} from '@/components'
 import { ERROR_CODE } from '@/constants'
 import { useAuth, useMessage } from '@/hooks'
 import { auth } from '@/libs'
@@ -20,9 +25,10 @@ import {
 } from '@chakra-ui/react'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { FormEvent, useRef, useState } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 
 export const SignUp = () => {
+  const navigate = useNavigate()
   const { dispatch } = useAuth()
   const { showMessage } = useMessage()
 
@@ -53,6 +59,7 @@ export const SignUp = () => {
       })
       dispatch({ type: AuthActionTypes.SIGNUP, payload: user })
       showMessage('Successfully created account', 'success')
+      navigate('/', { replace: true })
     } catch (error: any) {
       switch (error.code) {
         case ERROR_CODE.EMAIL_ALREADY_IN_USE:
@@ -128,6 +135,7 @@ export const SignUp = () => {
                   'Sign up'
                 )}
               </Button>
+              <GithubButton />
               <GoogleButton />
             </Stack>
           </form>

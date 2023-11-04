@@ -1,23 +1,23 @@
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import { Box, Button, Icon, Spinner, Text } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
-import { FcGoogle } from 'react-icons/fc'
-import { useState } from 'react'
 import { ERROR_CODE } from '@/constants'
 import { useAuth, useMessage } from '@/hooks'
-import { AuthActionTypes } from '@/types'
 import { auth } from '@/libs'
+import { AuthActionTypes } from '@/types'
+import { Box, Button, Icon, Spinner, Text } from '@chakra-ui/react'
+import { GithubAuthProvider, signInWithPopup } from 'firebase/auth'
+import { useState } from 'react'
+import { FaGithub } from 'react-icons/fa'
+import { useNavigate } from 'react-router-dom'
 
-export const GoogleButton = () => {
+export const GithubButton = () => {
   const navigate = useNavigate()
   const { dispatch } = useAuth()
   const { showMessage } = useMessage()
   const [loading, setLoading] = useState<boolean>(false)
 
-  const handleGoogleSignIn = async (): Promise<void> => {
+  const handleGithubSignIn = async (): Promise<void> => {
     try {
       setLoading(true)
-      const provider = new GoogleAuthProvider()
+      const provider = new GithubAuthProvider()
       const userCredential = await signInWithPopup(auth, provider)
       const user = userCredential.user
       dispatch({ type: AuthActionTypes.SIGNIN, payload: user })
@@ -38,11 +38,11 @@ export const GoogleButton = () => {
 
   return (
     <Button
-      size="sm"
       type="button"
-      onClick={handleGoogleSignIn}
+      onClick={handleGithubSignIn}
+      colorScheme="blackAlpha"
       fontWeight="300"
-      colorScheme="blackAlpha">
+      size="sm">
       {loading ? (
         <Spinner
           thickness="4px"
@@ -53,8 +53,8 @@ export const GoogleButton = () => {
         />
       ) : (
         <Box display="flex" alignItems="start" gap={1}>
-          <Icon as={FcGoogle} />
-          <Text as="span">Continue with Google</Text>
+          <Icon as={FaGithub} />
+          <Text as="span">Continue with Github</Text>
         </Box>
       )}
     </Button>

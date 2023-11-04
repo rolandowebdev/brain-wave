@@ -30,7 +30,7 @@ export const Dashboard = () => {
           <Text as="p" letterSpacing="wide" fontSize="22px">
             Let's Play!
           </Text>
-          <Heading as="h1" fontSize="3xl">
+          <Heading as="h1" fontSize="3xl" textTransform="capitalize">
             Be the first {currentUser?.displayName}
           </Heading>
         </VStack>
