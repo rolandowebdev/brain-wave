@@ -28,7 +28,7 @@ yarn build
 - Styling - [**Chakra UI**](https://chakra-ui.com/)
 - Fonts - [**Font Source**](https://fontsource.org/)
 - Vite - [**Module Bundler**](https://vitejs.dev/)
-- Icons - [**ChakraIcons**](https://chakra-ui.com/docs/components/icon/usage)
+- Icons - [**Lucide React**](https://lucide.dev/)
 - HTTP Client - [**Axios**](https://axios-http.com/)
 - State Management - [**Zustand**](https://zustand-demo.pmnd.rs/)
 - Cliend Side Routing - [**ReactRouterDOM**](https://reactrouter.com/)
