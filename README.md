@@ -1,6 +1,6 @@
 # Brainwave
 
-[![Brainwave Image](public/brainwave.png)](https://brainwave-beta.netlify.app/)
+[![Brainwave Image](public/brainwave-preview.png)](https://brainwave-beta.netlify.app/)
 
 ## Developing
 
