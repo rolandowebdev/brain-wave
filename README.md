@@ -2,6 +2,8 @@
 
 [![Brainwave Image](public/brainwave-preview.png)](https://brainwave-beta.netlify.app/)
 
+Discover Brain Wave, your portal to diverse knowledge. Engage in four distinct quiz categories, each a gateway to a unique world of discovery. From general wisdom to niche topics, explore, learn, and excel in categories tailored to fascinate every inquisitive mind.
+
 ## Developing
 
 Node.js `>= 18.x` setup with [yarn](https://yarnpkg.com/) is recommended.
@@ -22,20 +24,18 @@ yarn build
 
 ## Built with
 
-- Framework - [**ReactJS**](https://reactjs.org/)
+- UI Framework - [**ReactJS**](https://reactjs.org/)
 - Styling - [**Chakra UI**](https://chakra-ui.com/)
 - Fonts - [**Font Source**](https://fontsource.org/)
 - Vite - [**Module Bundler**](https://vitejs.dev/)
-- Husky - [**Git Hook**](https://typicode.github.io/husky/#/)
 - Icons - [**ChakraIcons**](https://chakra-ui.com/docs/components/icon/usage)
-- Data Fetching - [**Axios**](https://axios-http.com/)
+- HTTP Client - [**Axios**](https://axios-http.com/)
 - State Management - [**Zustand**](https://zustand-demo.pmnd.rs/)
 - Cliend Side Routing - [**ReactRouterDOM**](https://reactrouter.com/)
-- User Authentication - [**Firebase**](https://firebase.google.com/)
+- Authentication - [**Firebase**](https://firebase.google.com/)
 - Package Manager - [**Yarn**](https://yarnpkg.com/)
-- Linter - [**Eslint**](https://eslint.org/)
-- Code Formatter - [**Prettier**](https://prettier.io/)
 - Deployment - [**Netlify**](https://www.netlify.com/)
-- Others
-  - Encode HTML Entities - [**html-entities**](https://github.com/mdevils/html-entities)
-  - Lint Staged - [**lint-staged**](https://www.npmjs.com/package/lint-staged)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details.
