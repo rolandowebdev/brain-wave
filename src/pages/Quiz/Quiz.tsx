@@ -13,12 +13,12 @@ import {
   saveQuizData,
 } from '@/utils'
 import { generateRandom } from '@/utils'
-import { CloseIcon } from '@chakra-ui/icons'
 import {
   Button,
   Center,
   Heading,
   IconButton,
+  Image,
   Spinner,
   Stack,
   Text,
@@ -26,6 +26,7 @@ import {
 } from '@chakra-ui/react'
 import { signOut } from 'firebase/auth'
 import { decode } from 'html-entities'
+import { X } from 'lucide-react'
 import { MouseEventHandler, useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 
@@ -36,7 +37,7 @@ export const Quiz = () => {
   const { dispatch } = useAuth()
   const { quizName } = useParams()
 
-  const illustration = getIllustration(quizName, 'static', 'small')
+  const illustration = getIllustration(quizName)
   const amountOfQuestion = 10
 
   const quizUrl = getQuizUrl(quizName)
@@ -166,6 +167,7 @@ export const Quiz = () => {
         onClick={() => navigate(-1)}
         mt="44px"
         borderColor="brand.light"
+        borderWidth={2}
         variant="outline"
         rounded="full"
         aria-label="Search database"
@@ -174,7 +176,7 @@ export const Quiz = () => {
           borderColor: 'green.400',
         }}
         _focus={{ bgColor: 'green.400', borderColor: 'green.400' }}
-        icon={<CloseIcon fontSize="sm" color="brand.light" />}
+        icon={<X fontSize="sm" />}
       />
       {!error ? (
         <Stack
@@ -189,7 +191,12 @@ export const Quiz = () => {
             spacing={8}
             textAlign="center"
             fontSize="xl">
-            {illustration}
+            <Image
+              src={illustration?.image}
+              alt={illustration?.name}
+              h="220px"
+              w="220px"
+            />
             <VStack spacing={4} w="full">
               <Text
                 display="flex"

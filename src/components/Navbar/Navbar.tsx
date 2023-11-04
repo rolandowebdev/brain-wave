@@ -43,6 +43,7 @@ export const Navbar = ({ signout }: NavbarProps) => {
       <IconButton
         onClick={onOpen}
         borderColor="brand.light"
+        borderWidth={2}
         variant="outline"
         rounded="full"
         aria-label="Search database"
@@ -59,8 +60,8 @@ export const Navbar = ({ signout }: NavbarProps) => {
         onClose={onClose}
         isCentered>
         <ModalOverlay />
-        <ModalContent mx={4}>
-          <ModalHeader>Sign out</ModalHeader>
+        <ModalContent mx={4} rounded="lg">
+          <ModalHeader>Sign Out</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Text as="p">Do you really wish to leave and sign out?</Text>
@@ -75,7 +76,7 @@ export const Navbar = ({ signout }: NavbarProps) => {
               color="brand.light"
               _hover={{ bgColor: '#c23737' }}
               onClick={signout}>
-              Sign out
+              Sign Out
             </Button>
           </ModalFooter>
         </ModalContent>

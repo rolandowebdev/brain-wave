@@ -16,7 +16,7 @@ export type QuizName =
 
 export interface QuizProps {
   id: number
-  title: 'Animals' | 'General Knowledge' | 'Computer' | 'Geography' | 'Unknown'
+  title: 'Animals' | 'Knowledge' | 'Computer' | 'Geography' | 'Unknown'
   category: Category
   difficulty: 'Easy' | 'Medium' | 'Hard' | 'Unknown'
   description?: string

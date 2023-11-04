@@ -19,7 +19,6 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^2.0.19",
     "@chakra-ui/react": "^2.6.0",
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
@@ -28,6 +27,7 @@
     "firebase": "^9.21.0",
     "framer-motion": "^10.12.6",
     "html-entities": "^2.3.3",
+    "lucide-react": "^0.292.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",

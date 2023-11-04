@@ -10,7 +10,7 @@ export const menus: QuizProps[] = [
   {
     id: 2,
     category: 'knowledge',
-    title: 'General Knowledge',
+    title: 'Knowledge',
     difficulty: 'Medium',
   },
   {

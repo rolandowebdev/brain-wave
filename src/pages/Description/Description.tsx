@@ -4,7 +4,6 @@ import { auth } from '@/libs'
 import { AuthActionTypes } from '@/types'
 import { getDescription, getKeyStorage, isLocalStorageKeyExist } from '@/utils'
 import { getIllustration } from '@/utils'
-import { ChevronLeftIcon } from '@chakra-ui/icons'
 import {
   Box,
   Button,
@@ -12,11 +11,13 @@ import {
   HStack,
   Heading,
   IconButton,
+  Image,
   Stack,
   Text,
   VStack,
 } from '@chakra-ui/react'
 import { signOut } from 'firebase/auth'
+import { ArrowLeft } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 export const Description = () => {
@@ -25,7 +26,7 @@ export const Description = () => {
   const { category } = useParams()
 
   const categoryData = getDescription(category)
-  const illustration = getIllustration(category, 'static', 'small')
+  const illustration = getIllustration(category)
 
   const quizKey = getKeyStorage(category)
   const keyExists = isLocalStorageKeyExist(quizKey)
@@ -47,6 +48,7 @@ export const Description = () => {
       <HStack mt="44px" justifyContent="space-between" alignItems="center">
         <IconButton
           borderColor="brand.light"
+          borderWidth={2}
           variant="outline"
           rounded="full"
           aria-label="Search database"
@@ -56,11 +58,17 @@ export const Description = () => {
             borderColor: 'green.400',
           }}
           _focus={{ bgColor: 'green.400', borderColor: 'green.400' }}
-          icon={<ChevronLeftIcon fontSize="3xl" color="brand.light" />}
+          icon={<ArrowLeft />}
         />
       </HStack>
       <Box as="main" pb="40px">
-        <Center>{illustration}</Center>
+        <Center>
+          <Image
+            src={illustration?.image}
+            alt={illustration?.name}
+            boxSize={200}
+          />
+        </Center>
         <Stack spacing={4}>
           <VStack alignItems="flex-start">
             <Text as="span">{categoryData.difficulty}</Text>

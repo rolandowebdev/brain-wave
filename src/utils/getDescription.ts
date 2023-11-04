@@ -15,7 +15,7 @@ export const getDescription = (category: any): QuizProps => {
     case 'knowledge':
       return {
         id: 2,
-        title: 'General Knowledge',
+        title: 'Knowledge',
         category: 'knowledge',
         difficulty: 'Medium',
         quizName: 'knowledgeQuiz',

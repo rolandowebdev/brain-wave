@@ -1,5 +1,5 @@
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react'
+import { Eye, EyeOff } from 'lucide-react'
 import { Ref, forwardRef, useState } from 'react'
 
 interface CustomInputProps {
@@ -35,11 +35,7 @@ export const CustomInput = forwardRef(
               bg="transparent"
               onClick={handleClick}
               _hover={{ bg: 'transparent' }}>
-              {show ? (
-                <ViewIcon color="brand.light" />
-              ) : (
-                <ViewOffIcon color="brand.light" />
-              )}
+              {show ? <Eye /> : <EyeOff />}
             </Button>
           </InputRightElement>
         )}

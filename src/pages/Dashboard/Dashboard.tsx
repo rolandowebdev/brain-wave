@@ -25,11 +25,8 @@ export const Dashboard = () => {
   return (
     <>
       <Navbar signout={handleSignOut} />
-      <Box as="main" py="34px">
-        <VStack
-          spacing={1}
-          alignItems="flex-start"
-          mb={{ base: '24px', md: '28px', lg: '64px' }}>
+      <Box as="main" py="28px">
+        <VStack spacing={1} alignItems="flex-start" mb="24px">
           <Text as="p" letterSpacing="wide" fontSize="22px">
             Let's Play!
           </Text>
@@ -38,13 +35,8 @@ export const Dashboard = () => {
           </Heading>
         </VStack>
         <Grid
-          templateColumns={[
-            'repeat(1, 1fr)',
-            'repeat(1, 1fr)',
-            'repeat(1, 1fr)',
-            'repeat(2, 1fr)',
-          ]}
-          gap={[6, 10, 10, 12]}>
+          templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
+          gap="1rem">
           {menus.map((menu) => (
             <MenuCard
               key={menu.id}
