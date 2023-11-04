@@ -32,11 +32,7 @@ export const Navbar = ({ signout }: NavbarProps) => {
           to="/"
           fontSize="2xl"
           fontWeight="bold"
-          letterSpacing="wide"
-          _hover={{
-            color: 'green.400',
-          }}
-          _focus={{ color: 'green.400' }}>
+          letterSpacing="wide">
           Brainwave
         </Link>
       </HStack>

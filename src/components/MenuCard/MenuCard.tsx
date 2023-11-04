@@ -38,15 +38,20 @@ export const MenuCard = ({ category, title, difficulty }: QuizProps) => {
   return (
     <Card
       p="6px"
+      size="sm"
       bgGradient={background}
       color="brand.light"
       border="none"
       rounded="lg"
       direction={{ base: 'column', sm: 'row' }}
       variant="outline"
-      size="sm"
       onClick={() => navigate(`/${category}`)}
-      _hover={{ cursor: 'pointer' }}>
+      transitionDuration="300ms"
+      userSelect="none"
+      _hover={{
+        cursor: 'pointer',
+        transform: 'translateY(-2px)',
+      }}>
       <Box
         w="full"
         display="flex"
