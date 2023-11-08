@@ -112,9 +112,7 @@ export const Quiz = () => {
     const { isCorrect, isIncorrect } = checkAnswer(answer)
     if (isCorrect) setCorrectAnswer(correctAnswer + 1)
     if (isIncorrect) setIncorrectAnswers(incorrectAnswers + 1)
-    if (!isCorrect || !isIncorrect) {
-      setNotAnswered(results?.length - (incorrectAnswers + correctAnswer) - 1)
-    }
+    setNotAnswered(amountOfQuestion - (incorrectAnswers + correctAnswer) - 1)
   }
 
   const moveNextQuestion = () => {

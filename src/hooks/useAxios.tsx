@@ -25,6 +25,7 @@ export function useAxios({ url }: { url: string }): AxiosState {
         setLoading(false)
       }
     }
+
     fetchData()
   }, [])
 
